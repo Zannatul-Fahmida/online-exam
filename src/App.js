@@ -1,24 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar from './pages/Shared/Navbar/Navbar';
+import Home from './pages/Home/Home/Home';
+import Contact from './pages/Shared/Contact/Contact';
+import Features from './pages/Features/Features';
+import About from './pages/About/About';
+import NotFound from './pages/NotFound/NotFound';
+import Login from './pages/Login/Login/Login';
+import SignUp from './pages/Login/SignUp/SignUp';
+import AuthProvider from './contexts/AuthProvider';
+import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
+import FormTab from './pages/Dashboard/FormTab/FormTab';
+import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Home></Home>
+          </Route>
+          <Route path="/home">
+            <Home></Home>
+          </Route>
+          <Route path="/about">
+            <About></About>
+          </Route>
+          <Route path="/features">
+            <Features></Features>
+          </Route>
+          <Route path="/contact">
+            <Contact></Contact>
+          </Route>
+          <Route path="/login">
+            <Login></Login>
+          </Route>
+          <Route path="/signup">
+            <SignUp></SignUp>
+          </Route>
+          <PrivateRoute path="/dashboard">
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+          <PrivateRoute path="/form">
+            <FormTab></FormTab>
+          </PrivateRoute>
+          <Route path="*">
+            <NotFound></NotFound>
+          </Route>
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 
