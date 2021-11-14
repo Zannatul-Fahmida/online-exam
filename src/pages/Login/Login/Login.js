@@ -6,7 +6,7 @@ const Login = () => {
 	const { setUser, setError, handleEmail, handlePassword, logInWithEmailAndPassword, error } = useAuth();
 	const location = useLocation();
 	const history = useHistory();
-	const redirect_uri = location.state?.from || '/home';
+	const redirect_uri = location.state?.from || '/dashboard';
 	
     const handleEmailAndPasswordLogin = ()=>{
         logInWithEmailAndPassword()

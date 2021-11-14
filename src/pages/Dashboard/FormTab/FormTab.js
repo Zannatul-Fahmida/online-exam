@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import QuestionForm from '../QuestionForm/QuestionForm';
+import QuestionForm from '../QuestionForm/QuestionForm/QuestionForm';
 import Responses from '../Responses/Responses';
 import './FormTab.css';
 

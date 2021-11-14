@@ -6,7 +6,7 @@ const SignUp = () => {
     const { setUser, setError, setUserName, signInUsingGoogle, handleEmail, handlePassword, error, handleName, handleConfirmPassword, signUpWithEmailAndPassword } = useAuth();
     const location = useLocation();
     const history = useHistory();
-    const redirect_uri = location.state?.from || '/home';
+    const redirect_uri = location.state?.from || '/dashboard';
     
     const handleGoogleLogin = () => {
         signInUsingGoogle()
