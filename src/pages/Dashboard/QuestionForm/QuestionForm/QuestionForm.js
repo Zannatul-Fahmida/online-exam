@@ -1,58 +1,64 @@
 import React, { useState } from 'react';
-import { BiImageAdd } from 'react-icons/bi';
-import { FaTrashAlt } from 'react-icons/fa';
-import { GrAddCircle } from 'react-icons/gr';
-import { AiFillCarryOut } from 'react-icons/ai';
+import CheckBox from '../CheckBox/CheckBox';
+import FileUpload from '../FileUpload/FileUpload';
+import MultiChoice from '../MultiChoice/MultiChoice';
 import Options from '../Options/Options';
+import Paragraph from '../Paragraph/Paragraph';
 
 const QuestionForm = () => {
-    let [option, setOption] = useState([]);
-    const handleDelete = e => {
-        console.log('clicked');
-    }
-    const handleCreateOption = () => {
-        setOption(option.concat(<Options key={option.length} handleDelete={handleDelete} />));
-    }
+    const [show, setShow] = useState(false);
+    const [questions, setQuestions] = useState([]);
+    const [question, setQuestion] = useState("multi-choice");
+    console.log(question);
     return (
-        <div className="bg-purple-100 py-4 flex flex-col items-center justify-center">
+        <div className="py-4 flex flex-col items-center justify-center">
             {/* Form Title */}
-            <div className="bg-white flex flex-col text-left w-full md:w-2/3 rounded border-t-8 border-blue-800 p-7 filter drop-shadow-lg">
-                <input type="text" className="w-100 mb-2 text-3xl md:text-5xl border rounded border-transparent focus:outline-none focus:border-transparent" placeholder="Untitled document" />
-                <input type="text" className="w-100 text-base md:text-xl border rounded border-transparent focus:outline-none focus:border-transparent" placeholder="Form description" />
+            <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
+                <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
+                    <input type="text" className="w-full mb-2 text-3xl md:text-4xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2" placeholder="Subject/Exam name" />
+                </div>
+                <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
+                    <input type="text" className="w-full mb-2 text-xl md:text-2xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2" placeholder="Subject description" />
+                </div>
+                <div className="flex justify-between w-full md:w-1/2 mx-auto">
+                    <input type="text" className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 mr-2 pl-2 py-2" placeholder="Marks" />
+                    <input type="text" className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2" placeholder="Time" />
+                </div>
             </div>
             {/* Form body */}
-            <div className="bg-white flex flex-col w-full md:w-2/3 rounded border-l-8 border-blue-500 p-7 filter drop-shadow-lg">
-                <div className="flex items-center justify-between">
-                    <div className="w-4/6 md:w-3/5">
-                        <input type="text" className="w-full mb-2 text-lg md:text-xl border rounded border-transparent focus:outline-none focus:border-transparent" placeholder="Untitled Question" />
-                    </div>
-                    <div className="flex items-center">
-                        <button className="hover:bg-gray-100 p-2 rounded-full mx-4 md:mx-0">{<BiImageAdd className="text-2xl" />}</button>
-                        <select className="md:ml-4 text-lg px-0 md:px-3 border-2 border-gray-300 focus:outline-none ">
-                            <option>Multiple Choice</option>
-                            <option>Checkboxes</option>
-                            <option>Dropdown</option>
-                            <option>File upload</option>
-                            <option>Short answer</option>
-                            <option>Paragraph</option>
-                        </select>
-                    </div>
-                </div>
-                <Options handleDelete={handleDelete}></Options>
-                {option}
-                <div className="flex items-center w-full">
-                    <input type="radio" name="" id="" />
-                    <span onClick={handleCreateOption} className="w-5/6 ml-2 text-lg cursor-pointer focus:outline-none">Add option</span>
-                </div>
-                <hr className="my-4" />
-                <div className="flex items-center">
-                    <button title="Answer key and points" className="hover:bg-gray-100 p-2 rounded flex items-center text-gray-500">{<AiFillCarryOut className="text-lg" />} Answer Key (<span>0</span> points)</button>
-                    <button title="Delete" className="hover:bg-gray-100 p-2 rounded-full">{<FaTrashAlt className="text-lg" />}</button>
-                    <button title="Add question" className="hover:bg-gray-100 p-2 rounded-full">{<GrAddCircle className="text-lg" />}</button>
-                    <button title="Add image" className="hover:bg-gray-100 p-2 rounded-full">{<BiImageAdd className="text-lg" />}</button>
-                </div>
+            {questions.length > 0
+                ?
+                questions
+                :
+                ''
+            }
+            <button onClick={() => setShow(true)} className="text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-3">Add Question</button>
+            <div id="questionTypes" className={show ? "text-xl grid grid-cols-2 md:grid-cols-4 gap-4 block" : "text-xl grid grid-cols-2 md:grid-cols-4 gap-4 hidden"}>
+                <button onClick={() => setQuestion("multi-choice")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">Multiple Choice</button>
+                <button onClick={() => setQuestion("check-box")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">Check Box</button>
+                <button onClick={() => setQuestion("paragraph")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">Paragraph</button>
+                <button onClick={() => setQuestion("file-upload")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">File Upload</button>
             </div>
-        </div>
+            {
+                show ?
+                    <div>
+                        {
+                            question === "multi-choice" && <MultiChoice></MultiChoice>
+                        }
+                        {
+                            question === "check-box" && <CheckBox></CheckBox>
+                        }
+                        {
+                            question === "paragraph" && <Paragraph></Paragraph>
+                        }
+                        {
+                            question === "file-upload" && <FileUpload></FileUpload>
+                        }
+                    </div>
+                    :
+                    ''
+            }
+        </div >
     );
 };
 
