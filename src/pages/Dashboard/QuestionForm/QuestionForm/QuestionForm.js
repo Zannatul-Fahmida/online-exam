@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
 import MultiChoice from '../MultiChoice/MultiChoice';
-import Options from '../Options/Options';
 import Paragraph from '../Paragraph/Paragraph';
 
 const QuestionForm = () => {
@@ -41,7 +40,7 @@ const QuestionForm = () => {
             </div>
             {
                 show ?
-                    <div>
+                    <div className="w-1/2 my-7">
                         {
                             question === "multi-choice" && <MultiChoice></MultiChoice>
                         }

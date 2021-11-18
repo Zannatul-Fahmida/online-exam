@@ -13,7 +13,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
                 <Link to="/form" className="border border-transparent hover:border-purple-500 cursor-pointer">
                     <img src={img1} alt="" className="" />
-                    <p className="font-bold">Blank</p>
+                    <p className="font-bold">Create A Question</p>
                 </Link>
             </div>
         </div>
