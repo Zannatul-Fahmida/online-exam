@@ -8,6 +8,13 @@ const CheckBox = () => {
     const [option3, setOption3] = useState('');
     const [option4, setOption4] = useState('');
     const [option5, setOption5] = useState('');
+    const [answer, setAnswer] = useState([]);
+    const handleChange = (e) =>{
+        const newAnswer = e.target.value;
+        const ans = [...answer, newAnswer]
+        setAnswer(ans);
+    }
+    console.log(answer);
     return (
         <div className="flex flex-col w-full">
             <input
@@ -99,14 +106,14 @@ const CheckBox = () => {
                 <button className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-3">{<BiImageAdd className="text-2xl" />}</button>
             </div>
             <div className="flex items-center mt-2">
-                <label class="block">
-                    <span class="text-gray-700">Correct Answer</span>
-                    <select class="mx-2 text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2">
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
-                        <option>Option 4</option>
-                        <option>Option 5</option>
+                <label className="block">
+                    <span className="text-gray-700">Correct Answer</span>
+                    <select className="mx-2 text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2" onChange={handleChange}>
+                        <option value={option1}>Option 1</option>
+                        <option value={option2}>Option 2</option>
+                        <option value={option3}>Option 3</option>
+                        <option value={option4}>Option 4</option>
+                        <option value={option5}>Option 5</option>
                     </select>
                 </label>
                 <button className="border border-gray-200 hover:bg-gray-100 p-2 rounded-full mr-4 md:mr-3">Question Done</button>

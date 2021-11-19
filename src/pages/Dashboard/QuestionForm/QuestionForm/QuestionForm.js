@@ -8,7 +8,6 @@ const QuestionForm = () => {
     const [show, setShow] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState("multi-choice");
-    console.log(question);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             {/* Form Title */}
