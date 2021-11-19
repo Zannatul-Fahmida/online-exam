@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
-import { ImCross } from 'react-icons/im';
-import { GrAddCircle } from 'react-icons/gr';
-import { MdOutlineDone } from 'react-icons/md';
 
 const MultiChoice = () => {
     const [question, setQuestion] = useState('');
