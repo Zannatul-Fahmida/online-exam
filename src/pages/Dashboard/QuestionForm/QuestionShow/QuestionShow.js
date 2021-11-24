@@ -81,6 +81,27 @@ const QuestionShow = () => {
                             <p>Answer: {ques.answer}</p>
                         </>
                     }
+                    {
+                        ques.question === "paragraph" && <>
+                            <textarea
+                                name=""
+                                id=""
+                                rows="4"
+                                className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2 pl-2"
+                                placeholder="Answer"
+                            ></textarea>
+                        </>
+                    }
+                    {
+                        ques.question === "file-upload" && <>
+                            <input 
+                            type="file" 
+                            name="" 
+                            id=""
+                            className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2" 
+                            />
+                        </>
+                    }
                 </div>
                 )
             }

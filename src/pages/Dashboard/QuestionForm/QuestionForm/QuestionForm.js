@@ -38,6 +38,7 @@ const QuestionForm = () => {
             .then(data => {
                 if (data.insertedId) {
                     setQuestions(newQuestion);
+                    window.location.reload();
                 }
             })
         e.preventDefault();
