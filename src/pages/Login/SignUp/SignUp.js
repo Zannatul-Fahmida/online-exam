@@ -75,7 +75,7 @@ const SignUp = () => {
                     Already have an account? <Link className="no-underline border-b border-blue text-purple-700 font-semibold hover:border-purple-700" to="/login">
                         Log in
                     </Link>
-                    <p>Or signup with <button onClick={handleGoogleLogin} className="border-b border-blue text-purple-700 font-semibold hover:border-purple-700">google</button></p>
+                    <p>Or signup with <button onClick={handleGoogleLogin} className="border-b border-blue text-purple-700 font-semibold hover:border-purple-700">Google</button></p>
                 </div>
             </div>
         </div>

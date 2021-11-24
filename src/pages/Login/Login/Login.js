@@ -3,11 +3,18 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-	const { setUser, setError, handleEmail, handlePassword, logInWithEmailAndPassword, error } = useAuth();
+	const { setUser, setError, handleEmail, handlePassword, logInWithEmailAndPassword, signInUsingGoogle, error } = useAuth();
 	const location = useLocation();
 	const history = useHistory();
 	const redirect_uri = location.state?.from || '/dashboard';
 	
+	const handleGoogleLogin = () => {
+        signInUsingGoogle()
+            .then(result => {
+                history.push(redirect_uri);
+            })
+    }
+
     const handleEmailAndPasswordLogin = ()=>{
         logInWithEmailAndPassword()
         .then(result => {
@@ -29,7 +36,7 @@ const Login = () => {
 					<button onClick={handleEmailAndPasswordLogin} className="md:w-4/12 justify-self-center items-center py-1.5 px-7 border-2 border-purple-700 rounded-md text-xl font-bold text-purple-900 bg-pink-200 hover:bg-purple-700 hover:text-white">Login</button>
 				</div>
 				<div className="flex justify-center my-4">
-					<Link className="text-blue-500 text-sm" to="/">Forgot account?</Link>
+				<p>Or Login With <button onClick={handleGoogleLogin} className="border-b border-blue text-purple-700 font-semibold hover:border-purple-700">Google</button></p>
 				</div>
 				<hr />
 				<div className="text-center my-6">
