@@ -75,7 +75,12 @@ const QuestionShow = () => {
                             </>
                         }
                     </form>
-                    <p>Answer: {ques.answer}</p>
+                    {
+                        ques.answer &&
+                        <>
+                            <p>Answer: {ques.answer}</p>
+                        </>
+                    }
                 </div>
                 )
             }
