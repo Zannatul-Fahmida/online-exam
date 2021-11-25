@@ -6,6 +6,10 @@ import Paragraph from '../Paragraph/Paragraph';
 import QuestionShow from '../QuestionShow/QuestionShow';
 
 const QuestionForm = () => {
+    const [examTitle, setExamTitle] = useState('');
+    const [examDescription, setExamDescription] = useState('');
+    const [examMarks, setExamMarks] = useState('');
+    const [examTime, setExamTime] = useState('');
     const [show, setShow] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState("multi-choice");
@@ -48,14 +52,34 @@ const QuestionForm = () => {
             {/* Form Title */}
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
-                    <input type="text" className="w-full mb-2 text-3xl md:text-4xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2" placeholder="Subject/Exam name" />
+                    <input
+                        type="text"
+                        className="w-full mb-2 text-3xl md:text-4xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2"
+                        placeholder="Subject/Exam name"
+                        onBlur={(e) => setExamTitle(e.target.value)}
+                    />
                 </div>
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
-                    <input type="text" className="w-full mb-2 text-xl md:text-2xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2" placeholder="Subject description" />
+                    <input
+                        type="text"
+                        className="w-full mb-2 text-xl md:text-2xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2"
+                        placeholder="Subject description"
+                        onBlur={(e) => setExamDescription(e.target.value)}
+                    />
                 </div>
                 <div className="flex justify-between w-full md:w-1/2 mx-auto">
-                    <input type="text" className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 mr-2 pl-2 py-2" placeholder="Marks" />
-                    <input type="text" className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2" placeholder="Time" />
+                    <input
+                        type="text"
+                        className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 mr-2 pl-2 py-2"
+                        placeholder="Marks"
+                        onBlur={(e) => setExamMarks(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2"
+                        placeholder="Time"
+                        onBlur={(e) => setExamTime(e.target.value)}
+                    />
                 </div>
             </div>
             {/* Form body */}

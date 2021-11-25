@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ImCross } from 'react-icons/im';
 
 const QuestionShow = () => {
     const [questions, setQuestions] = useState([]);
@@ -7,10 +8,24 @@ const QuestionShow = () => {
             .then(res => res.json())
             .then(data => setQuestions(data))
     }, []);
-    return (
-        <div className="my-7 w-full md:w-2/3">
-            {
-                questions.map(ques => <div key={questions._id}>
+    const handleDelete = id => {
+        fetch(`https://agile-retreat-39153.herokuapp.com/question/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    window.location.reload();
+                    const remaining = questions.filter(ques => ques._id !== id);
+                    setQuestions(remaining);
+                }
+            })
+    }
+return (
+    <div className="my-7 w-full md:w-2/3">
+        {
+            questions.map(ques => <div className="mx-4 md:mx-0 flex items-center justify-between" key={questions._id}>
+                <div className="w-full">
                     <div className="flex justify-between">
                         <p>{ques.questionTitle}</p>
                         <p>{ques.mark}</p>
@@ -94,19 +109,23 @@ const QuestionShow = () => {
                     }
                     {
                         ques.question === "file-upload" && <>
-                            <input 
-                            type="file" 
-                            name="" 
-                            id=""
-                            className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2" 
+                            <input
+                                type="file"
+                                name=""
+                                id=""
+                                className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2"
                             />
                         </>
                     }
                 </div>
-                )
-            }
-        </div>
-    );
+                <div className="ml-3">
+                    <button onClick={() => handleDelete(ques._id)}>{<ImCross className="text-red-700" />}</button>
+                </div>
+            </div>
+            )
+        }
+    </div>
+);
 };
 
 export default QuestionShow;
