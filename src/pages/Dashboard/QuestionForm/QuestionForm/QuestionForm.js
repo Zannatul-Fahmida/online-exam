@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
 import FormTitle from '../FormTitle/FormTitle';
@@ -45,13 +45,42 @@ const QuestionForm = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    setQuestions(newQuestion);
                     window.location.reload();
                 }
             })
         e.preventDefault();
     }
-    console.log(date);
+    useEffect(() => {
+        fetch('https://agile-retreat-39153.herokuapp.com/questions')
+            .then(res => res.json())
+            .then(data => setQuestions(data))
+    }, []);
+    const handleUploadQuestion = () => {
+        const newQuestionSet = { examTitle, examDescription, examMarks, examTime, ...questions, date, endingTime, startingTime };
+        fetch('https://agile-retreat-39153.herokuapp.com/addQuestionSet', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newQuestionSet)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    
+                }
+            })
+        fetch(`https://agile-retreat-39153.herokuapp.com/questions`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    window.location.reload();
+                    setQuestions([]);
+                }
+            })
+    }
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             {/* Form Title */}
@@ -64,10 +93,13 @@ const QuestionForm = () => {
             {/* Form body */}
             {questions.length > 0
                 ?
-                ''
-                :
                 <>
-                    <QuestionShow></QuestionShow>
+                    {
+                        questions.map(ques => <QuestionShow
+                            key={ques._id}
+                            ques={ques}
+                        ></QuestionShow>)
+                    }
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mb-2">
                         <div className="flex justify-between items-center">
                             <label htmlFor="startTime">Starting Time</label>
@@ -97,11 +129,13 @@ const QuestionForm = () => {
                             onChange={(e) => setDate(e.target.value)}
                         />
                     </div>
-                    <button className="text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-2">Upload Question</button>
+                    <button onClick={handleUploadQuestion} className="text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-2">Upload Question</button>
                 </>
+                :
+                ''
             }
             <button onClick={() => setShow(true)} className={show ? "text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-3 hidden" : "text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-3 block"}>Add Question</button>
-            <div id="questionTypes" className={show ? "text-xl grid grid-cols-2 md:grid-cols-4 gap-4 block" : "text-xl grid grid-cols-2 md:grid-cols-4 gap-4 hidden"}>
+            <div id="questionTypes" className={show ? "my-5 text-xl grid grid-cols-2 md:grid-cols-4 gap-4 block" : "text-xl grid grid-cols-2 md:grid-cols-4 gap-4 hidden"}>
                 <button onClick={() => setQuestion("multi-choice")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">Multiple Choice</button>
                 <button onClick={() => setQuestion("check-box")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">Check Box</button>
                 <button onClick={() => setQuestion("paragraph")} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3">Paragraph</button>

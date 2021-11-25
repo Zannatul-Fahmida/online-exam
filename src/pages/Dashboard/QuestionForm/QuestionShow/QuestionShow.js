@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ImCross } from 'react-icons/im';
 
-const QuestionShow = () => {
+const QuestionShow = (props) => {
+    const {questionTitle, mark, option1, option2, option3, option4, option5, _id, answer, question} = props.ques;
     const [questions, setQuestions] = useState([]);
-    useEffect(() => {
-        fetch('https://agile-retreat-39153.herokuapp.com/questions')
-            .then(res => res.json())
-            .then(data => setQuestions(data))
-    }, []);
+
     const handleDelete = id => {
         fetch(`https://agile-retreat-39153.herokuapp.com/question/${id}`, {
             method: 'DELETE'
@@ -21,83 +18,82 @@ const QuestionShow = () => {
                 }
             })
     }
-return (
-    <div className="my-7 w-full md:w-2/3">
-        {
-            questions.map(ques => <div className="mx-4 md:mx-0 flex items-center justify-between" key={questions._id}>
+    return (
+        <div className="mt-5 w-full md:w-2/3">
+            <div className="mx-4 md:mx-0 flex items-center justify-between">
                 <div className="w-full">
                     <div className="flex justify-between">
-                        <p>{ques.questionTitle}</p>
-                        <p>{ques.mark}</p>
+                        <p>{questionTitle}</p>
+                        <p>{mark}</p>
                     </div>
                     <form>
                         {
-                            ques.option1 && <>
+                            option1 && <>
                                 <input
-                                    type={ques.question === "check-box" ? "checkbox" : "radio"}
+                                    type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option1"
-                                    value={ques.option1}
+                                    value={option1}
                                 />
-                                <label htmlFor="option1">{ques.option1}</label><br />
+                                <label htmlFor="option1">{option1}</label><br />
                             </>
                         }
                         {
-                            ques.option2 && <>
+                            option2 && <>
                                 <input
-                                    type={ques.question === "check-box" ? "checkbox" : "radio"}
+                                    type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option2"
-                                    value={ques.option2}
+                                    value={option2}
                                 />
-                                <label htmlFor="option2">{ques.option2}</label><br />
+                                <label htmlFor="option2">{option2}</label><br />
                             </>
                         }
                         {
-                            ques.option3 &&
+                            option3 &&
                             <>
                                 <input
-                                    type={ques.question === "check-box" ? "checkbox" : "radio"}
+                                    type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option3"
-                                    value={ques.option3}
+                                    value={option3}
                                 />
-                                <label htmlFor="option3">{ques.option3}</label><br />
+                                <label htmlFor="option3">{option3}</label><br />
                             </>
                         }
                         {
-                            ques.option4 &&
+                            option4 &&
                             <>
                                 <input
-                                    type={ques.question === "check-box" ? "checkbox" : "radio"}
+                                    type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option4"
-                                    value={ques.option4}
+                                    value={option4}
                                 />
-                                <label htmlFor="option4">{ques.option4}</label><br />
+                                <label htmlFor="option4">{option4}</label><br />
                             </>
                         }
                         {
-                            ques.option5 &&
+                            option5 &&
                             <>
                                 <input
-                                    type={ques.question === "check-box" ? "checkbox" : "radio"}
+                                    type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option5"
-                                    value={ques.option5}
+                                    value={option5}
                                 />
-                                <label htmlFor="option5">{ques.option5}</label><br />
+                                <label htmlFor="option5">{option5}</label><br />
                             </>
                         }
                     </form>
                     {
-                        ques.answer &&
+                        answer &&
                         <>
-                            <p>Answer: {ques.answer}</p>
+                            <p>Answer: {answer}</p>
                         </>
                     }
                     {
-                        ques.question === "paragraph" && <>
+                        question === "paragraph" && <>
                             <textarea
                                 name=""
                                 id=""
@@ -108,7 +104,7 @@ return (
                         </>
                     }
                     {
-                        ques.question === "file-upload" && <>
+                        question === "file-upload" && <>
                             <input
                                 type="file"
                                 name=""
@@ -119,13 +115,11 @@ return (
                     }
                 </div>
                 <div className="ml-3">
-                    <button onClick={() => handleDelete(ques._id)}>{<ImCross className="text-red-700" />}</button>
+                    <button onClick={() => handleDelete(_id)}>{<ImCross className="text-red-700" />}</button>
                 </div>
             </div>
-            )
-        }
-    </div>
-);
+        </div>
+    );
 };
 
 export default QuestionShow;
