@@ -8,6 +8,7 @@ import QuestionShow from '../QuestionShow/QuestionShow';
 
 const QuestionForm = () => {
     const [examTitle, setExamTitle] = useState('');
+    const [instituteName, setInstituteName] = useState('');
     const [examDescription, setExamDescription] = useState('');
     const [examMarks, setExamMarks] = useState('');
     const [examTime, setExamTime] = useState('');
@@ -56,7 +57,7 @@ const QuestionForm = () => {
             .then(data => setQuestions(data))
     }, []);
     const handleUploadQuestion = () => {
-        const newQuestionSet = { examTitle, examDescription, examMarks, examTime, ...questions, date, endingTime, startingTime };
+        const newQuestionSet = { examTitle, instituteName, examDescription, examMarks, examTime, ...questions, date, endingTime, startingTime };
         fetch('https://agile-retreat-39153.herokuapp.com/addQuestionSet', {
             method: 'POST',
             headers: {
@@ -67,7 +68,7 @@ const QuestionForm = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    
+
                 }
             })
         fetch(`https://agile-retreat-39153.herokuapp.com/questions`, {
@@ -85,6 +86,7 @@ const QuestionForm = () => {
         <div className="py-4 flex flex-col items-center justify-center">
             {/* Form Title */}
             <FormTitle
+                setInstituteName={setInstituteName}
                 setExamTitle={setExamTitle}
                 setExamDescription={setExamDescription}
                 setExamMarks={setExamMarks}
