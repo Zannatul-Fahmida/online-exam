@@ -39,7 +39,7 @@ return (
                                     id="option1"
                                     value={ques.option1}
                                 />
-                                <label for="option1">{ques.option1}</label><br />
+                                <label htmlFor="option1">{ques.option1}</label><br />
                             </>
                         }
                         {
@@ -50,7 +50,7 @@ return (
                                     id="option2"
                                     value={ques.option2}
                                 />
-                                <label for="option2">{ques.option2}</label><br />
+                                <label htmlFor="option2">{ques.option2}</label><br />
                             </>
                         }
                         {
@@ -62,7 +62,7 @@ return (
                                     id="option3"
                                     value={ques.option3}
                                 />
-                                <label for="option3">{ques.option3}</label><br />
+                                <label htmlFor="option3">{ques.option3}</label><br />
                             </>
                         }
                         {
@@ -74,7 +74,7 @@ return (
                                     id="option4"
                                     value={ques.option4}
                                 />
-                                <label for="option4">{ques.option4}</label><br />
+                                <label htmlFor="option4">{ques.option4}</label><br />
                             </>
                         }
                         {
@@ -86,7 +86,7 @@ return (
                                     id="option5"
                                     value={ques.option5}
                                 />
-                                <label for="option5">{ques.option5}</label><br />
+                                <label htmlFor="option5">{ques.option5}</label><br />
                             </>
                         }
                     </form>

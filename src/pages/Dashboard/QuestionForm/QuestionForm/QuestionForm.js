@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
+import FormTitle from '../FormTitle/FormTitle';
 import MultiChoice from '../MultiChoice/MultiChoice';
 import Paragraph from '../Paragraph/Paragraph';
 import QuestionShow from '../QuestionShow/QuestionShow';
@@ -10,6 +11,9 @@ const QuestionForm = () => {
     const [examDescription, setExamDescription] = useState('');
     const [examMarks, setExamMarks] = useState('');
     const [examTime, setExamTime] = useState('');
+    const [startingTime, setStartingTime] = useState('');
+    const [endingTime, setEndingTime] = useState('');
+    const [date, setDate] = useState('');
     const [show, setShow] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState("multi-choice");
@@ -47,41 +51,16 @@ const QuestionForm = () => {
             })
         e.preventDefault();
     }
+    console.log(date);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             {/* Form Title */}
-            <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
-                <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
-                    <input
-                        type="text"
-                        className="w-full mb-2 text-3xl md:text-4xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2"
-                        placeholder="Subject/Exam name"
-                        onBlur={(e) => setExamTitle(e.target.value)}
-                    />
-                </div>
-                <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
-                    <input
-                        type="text"
-                        className="w-full mb-2 text-xl md:text-2xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2"
-                        placeholder="Subject description"
-                        onBlur={(e) => setExamDescription(e.target.value)}
-                    />
-                </div>
-                <div className="flex justify-between w-full md:w-1/2 mx-auto">
-                    <input
-                        type="text"
-                        className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 mr-2 pl-2 py-2"
-                        placeholder="Marks"
-                        onBlur={(e) => setExamMarks(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        className="w-1/2 text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 py-2"
-                        placeholder="Time"
-                        onBlur={(e) => setExamTime(e.target.value)}
-                    />
-                </div>
-            </div>
+            <FormTitle
+                setExamTitle={setExamTitle}
+                setExamDescription={setExamDescription}
+                setExamMarks={setExamMarks}
+                setExamTime={setExamTime}
+            />
             {/* Form body */}
             {questions.length > 0
                 ?
@@ -89,6 +68,35 @@ const QuestionForm = () => {
                 :
                 <>
                     <QuestionShow></QuestionShow>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mb-2">
+                        <div className="flex justify-between items-center">
+                            <label htmlFor="startTime">Starting Time</label>
+                            <input
+                                type="time"
+                                id="startTime"
+                                className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                                onBlur={(e) => setStartingTime(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <label htmlFor="endTime">Ending Time</label>
+                            <input
+                                type="time"
+                                id="endTime"
+                                className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                                onBlur={(e) => setEndingTime(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="w-full md:w-2/3">
+                        <input
+                            type="date"
+                            name=""
+                            id=""
+                            className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                            onChange={(e) => setDate(e.target.value)}
+                        />
+                    </div>
                     <button className="text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-2">Upload Question</button>
                 </>
             }
