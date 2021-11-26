@@ -10,7 +10,7 @@ const CheckBox = ({ setOption1, setOption2, setOption3, setOption4, setOption5, 
                     type="text"
                     name=""
                     id=""
-                    className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2 pl-2"
+                    className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2"
                     placeholder="Question"
                     onBlur={(e) => setQuestionTitle(e.target.value)}
                 />

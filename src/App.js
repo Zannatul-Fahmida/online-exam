@@ -12,6 +12,7 @@ import AuthProvider from './contexts/AuthProvider';
 import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
 import FormTab from './pages/Dashboard/FormTab/FormTab';
 import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
+import QuestionSet from './pages/Dashboard/QuestionForm/QuestionSet/QuestionSet';
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <PrivateRoute path="/dashboard">
             <Dashboard></Dashboard>
+          </PrivateRoute>
+          <PrivateRoute path="/questionSet/:quesId">
+            <QuestionSet></QuestionSet>
           </PrivateRoute>
           <PrivateRoute path="/form">
             <FormTab></FormTab>

@@ -9,7 +9,7 @@ const Paragraph = ({ setQuestionTitle }) => {
                     type="text"
                     name=""
                     id=""
-                    className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2 pl-2"
+                    className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2"
                     placeholder="Question"
                     onBlur={(e) => setQuestionTitle(e.target.value)}
                 />

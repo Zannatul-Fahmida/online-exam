@@ -57,7 +57,7 @@ const QuestionForm = () => {
             .then(data => setQuestions(data))
     }, []);
     const handleUploadQuestion = () => {
-        const newQuestionSet = { examTitle, instituteName, examDescription, examMarks, examTime, ...questions, date, endingTime, startingTime };
+        const newQuestionSet = { examTitle, instituteName, examDescription, examMarks, examTime, questions: [...questions], date, endingTime, startingTime };
         fetch('https://agile-retreat-39153.herokuapp.com/addQuestionSet', {
             method: 'POST',
             headers: {
