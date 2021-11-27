@@ -18,6 +18,13 @@ const useFirebase = () => {
 
     const signInUsingGoogle = () => {
         return signInWithPopup(auth, googleProvider)
+            .then((result) => {
+                const user = result.user;
+                saveUser(user.email, user.displayName, 'PUT');
+                setError('');
+            }).catch((error) => {
+                setError(error.message);
+            })
             .finally(() => setIsLoading(false));
     }
 
@@ -66,14 +73,35 @@ const useFirebase = () => {
     }
     const signUpWithEmailAndPassword = () => {
         return createUserWithEmailAndPassword(auth, email, password)
-            .catch(error => {
-                setError(error.message);
-            })
+        .then((userCredential) => {
+            setError('');
+            const newUser = { email, displayName: name };
+            setUser(newUser);
+            setUserName();
+            //Save user to the database
+            saveUser(email, name, 'POST');
+        })
+        .catch((error) => {
+            setError(error.message);
+        })
+        .finally(() => setIsLoading(false));
 
     }
     const setUserName = () => {
         updateProfile(auth.currentUser, { displayName: name })
             .then(result => { })
+    }
+
+    const saveUser = (email, displayName, method) => {
+        const user = { email, displayName };
+        fetch('https://agile-retreat-39153.herokuapp.com/users', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
     }
 
     return {

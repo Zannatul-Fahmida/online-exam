@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useAuth from '../../../../hooks/useAuth';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
 import FormTitle from '../FormTitle/FormTitle';
@@ -7,6 +8,7 @@ import Paragraph from '../Paragraph/Paragraph';
 import QuestionShow from '../QuestionShow/QuestionShow';
 
 const QuestionForm = () => {
+    const {user} = useAuth();
     const [examTitle, setExamTitle] = useState('');
     const [instituteName, setInstituteName] = useState('');
     const [examDescription, setExamDescription] = useState('');
@@ -57,7 +59,8 @@ const QuestionForm = () => {
             .then(data => setQuestions(data))
     }, []);
     const handleUploadQuestion = () => {
-        const newQuestionSet = { examTitle, instituteName, examDescription, examMarks, examTime, questions: [...questions], date, endingTime, startingTime };
+        const email = user.email;
+        const newQuestionSet = { email, examTitle, instituteName, examDescription, examMarks, examTime, questions: [...questions], date, endingTime, startingTime };
         fetch('https://agile-retreat-39153.herokuapp.com/addQuestionSet', {
             method: 'POST',
             headers: {

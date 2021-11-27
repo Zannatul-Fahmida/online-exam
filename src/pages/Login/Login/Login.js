@@ -3,7 +3,7 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-	const { setUser, setError, handleEmail, handlePassword, logInWithEmailAndPassword, signInUsingGoogle, error } = useAuth();
+	const { setUser, handleEmail, handlePassword, logInWithEmailAndPassword, signInUsingGoogle, error } = useAuth();
 	const location = useLocation();
 	const history = useHistory();
 	const redirect_uri = location.state?.from || '/dashboard';
@@ -19,7 +19,6 @@ const Login = () => {
         logInWithEmailAndPassword()
         .then(result => {
             setUser(result.user);
-            setError('');
             history.push(redirect_uri);
         })
     }
