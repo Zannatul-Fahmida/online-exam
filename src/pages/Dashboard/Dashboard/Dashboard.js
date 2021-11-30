@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import img1 from '../../../images/plus-icon-vector-add-addition-260nw-1305881509 (1).jpg';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Dashboard = () => {
+    const {user} = useAuth();
     const [questionSet, setQuestionSet] = useState([]);
     useEffect(() => {
-        fetch('https://agile-retreat-39153.herokuapp.com/questionSet')
+        fetch(`https://agile-retreat-39153.herokuapp.com/myQuestionSet/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
-    }, []);
+    }, [user.email]);
     return (
         <div className="bg-indigo-100 md:px-12 py-8">
             <div className="flex justify-between">
@@ -20,6 +22,10 @@ const Dashboard = () => {
                 <Link to="/form" className="border border-transparent hover:border-purple-500 cursor-pointer">
                     <img src={img1} alt="" className="" />
                     <p className="font-bold">Create A Question</p>
+                </Link>
+                <Link to="/exam" className="border border-transparent hover:border-purple-500 cursor-pointer">
+                    <img src={img1} alt="" className="" />
+                    <p className="font-bold">Give A Exam</p>
                 </Link>
                 {
                     questionSet.map(ques => <Link to={`/questionSet/${ques._id}`} className="border border-transparent hover:border-purple-500 cursor-pointer">

@@ -14,8 +14,8 @@ const QuestionSet = () => {
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
-                    <p>{questionSet?.instituteName}</p>
-                    <p>{questionSet?.examTitle}</p>
+                    <p className="text-3xl">{questionSet?.instituteName}</p>
+                    <p className="text-lg">{questionSet?.examTitle}</p>
                     <p>{questionSet?.examDescription}</p>
                     <div className="flex justify-between w-full">
                         <p>Marks: {questionSet?.examMarks}</p>
@@ -121,6 +121,7 @@ const QuestionSet = () => {
                     }
                 </div>
             </div>
+            <button className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3 my-4">Reuse Question set</button>
         </div >
     );
 };

@@ -33,6 +33,7 @@ const QuestionShow = (props) => {
                                     type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option1"
+                                    className="mr-2"
                                     value={option1}
                                 />
                                 <label htmlFor="option1">{option1}</label><br />
@@ -44,6 +45,7 @@ const QuestionShow = (props) => {
                                     type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option2"
+                                    className="mr-2"
                                     value={option2}
                                 />
                                 <label htmlFor="option2">{option2}</label><br />
@@ -56,6 +58,7 @@ const QuestionShow = (props) => {
                                     type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option3"
+                                    className="mr-2"
                                     value={option3}
                                 />
                                 <label htmlFor="option3">{option3}</label><br />
@@ -68,6 +71,7 @@ const QuestionShow = (props) => {
                                     type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option4"
+                                    className="mr-2"
                                     value={option4}
                                 />
                                 <label htmlFor="option4">{option4}</label><br />
@@ -80,6 +84,7 @@ const QuestionShow = (props) => {
                                     type={question === "check-box" ? "checkbox" : "radio"}
                                     name=""
                                     id="option5"
+                                    className="mr-2"
                                     value={option5}
                                 />
                                 <label htmlFor="option5">{option5}</label><br />

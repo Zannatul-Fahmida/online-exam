@@ -8,7 +8,7 @@ import Paragraph from '../Paragraph/Paragraph';
 import QuestionShow from '../QuestionShow/QuestionShow';
 
 const QuestionForm = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [examTitle, setExamTitle] = useState('');
     const [instituteName, setInstituteName] = useState('');
     const [examDescription, setExamDescription] = useState('');
@@ -96,6 +96,35 @@ const QuestionForm = () => {
                 setExamTime={setExamTime}
             />
             {/* Form body */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mt-4">
+                <div className="flex justify-between items-center">
+                    <label htmlFor="startTime">Starting Time</label>
+                    <input
+                        type="time"
+                        id="startTime"
+                        className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                        onBlur={(e) => setStartingTime(e.target.value)}
+                    />
+                </div>
+                <div className="flex justify-between items-center">
+                    <label htmlFor="endTime">Ending Time</label>
+                    <input
+                        type="time"
+                        id="endTime"
+                        className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                        onBlur={(e) => setEndingTime(e.target.value)}
+                    />
+                </div>
+            </div>
+            <div className="w-full md:w-2/3">
+                <input
+                    type="date"
+                    name=""
+                    id=""
+                    className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                    onChange={(e) => setDate(e.target.value)}
+                />
+            </div>
             {questions.length > 0
                 ?
                 <>
@@ -105,35 +134,6 @@ const QuestionForm = () => {
                             ques={ques}
                         ></QuestionShow>)
                     }
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mb-2">
-                        <div className="flex justify-between items-center">
-                            <label htmlFor="startTime">Starting Time</label>
-                            <input
-                                type="time"
-                                id="startTime"
-                                className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
-                                onBlur={(e) => setStartingTime(e.target.value)}
-                            />
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <label htmlFor="endTime">Ending Time</label>
-                            <input
-                                type="time"
-                                id="endTime"
-                                className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
-                                onBlur={(e) => setEndingTime(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="w-full md:w-2/3">
-                        <input
-                            type="date"
-                            name=""
-                            id=""
-                            className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                    </div>
                     <button onClick={handleUploadQuestion} className="text-xl my-5 bg-purple-700 text-white rounded-md px-5 py-2">Upload Question</button>
                 </>
                 :
