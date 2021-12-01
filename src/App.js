@@ -15,6 +15,7 @@ import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
 import QuestionSet from './pages/Dashboard/QuestionForm/QuestionSet/QuestionSet';
 import Exam from './pages/Dashboard/ExamForm/Exam/Exam';
 import ExamForm from './pages/Dashboard/ExamForm/ExamForm/ExamForm';
+import Success from './pages/Dashboard/ExamForm/Success/Success';
 
 function App() {
   return (
@@ -57,6 +58,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/examForm/:quesCode">
             <ExamForm></ExamForm>
+          </PrivateRoute>
+          <PrivateRoute path="/success">
+            <Success></Success>
           </PrivateRoute>
           <Route path="*">
             <NotFound></NotFound>

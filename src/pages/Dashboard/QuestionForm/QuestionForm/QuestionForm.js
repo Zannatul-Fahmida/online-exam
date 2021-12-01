@@ -37,7 +37,7 @@ const QuestionForm = () => {
         setAnswer(ans);
     }
     const handleAddQuestion = e => {
-        const newQuestion = { questionTitle, option1, option2, option3, option4, option5, mark, answer, question };
+        const newQuestion = { email: user.email, questionTitle, option1, option2, option3, option4, option5, mark, answer, question };
         fetch('https://agile-retreat-39153.herokuapp.com/addQuestions', {
             method: 'POST',
             headers: {
@@ -54,7 +54,7 @@ const QuestionForm = () => {
         e.preventDefault();
     }
     useEffect(() => {
-        fetch('https://agile-retreat-39153.herokuapp.com/questions')
+        fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestions(data))
     }, []);
@@ -74,7 +74,7 @@ const QuestionForm = () => {
 
                 }
             })
-        fetch(`https://agile-retreat-39153.herokuapp.com/questions`, {
+        fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -96,6 +96,7 @@ const QuestionForm = () => {
                 setExamTime={setExamTime}
             />
             {/* Form body */}
+            {questions.length >0 && <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mt-4">
                 <div className="flex justify-between items-center">
                     <label htmlFor="startTime">Starting Time</label>
@@ -125,6 +126,8 @@ const QuestionForm = () => {
                     onChange={(e) => setDate(e.target.value)}
                 />
             </div>
+            </>
+            }
             {questions.length > 0
                 ?
                 <>
@@ -162,7 +165,7 @@ const QuestionForm = () => {
                                 <div className="flex flex-wrap md:flex-row items-center mt-2">
                                     <label className="block pb-3 md:pb-0">
                                         <span className="text-gray-700">Correct Answer</span>
-                                        <select className="mx-2 text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2" onChange={handleMultipleChange}>
+                                        <select className="mx-2 text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2" onBlur={handleMultipleChange}>
                                             <option value={option1}>Option 1</option>
                                             <option value={option2}>Option 2</option>
                                             <option value={option3}>Option 3</option>

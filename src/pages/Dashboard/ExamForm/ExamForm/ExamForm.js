@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
 
 const ExamForm = () => {
     const { quesCode } = useParams();
     const { user } = useAuth();
-    const [studentName, setStudentName] = useState('');
-    const [studentEmail, setStudentEmail] = useState('');
+    const [studentName, setStudentName] = useState(`${user.displayName}`);
+    const [studentEmail, setStudentEmail] = useState(`${user.email}`);
     const [questionSet, setQuestionSet] = useState([]);
+    const [multipleAnswer, setMultipleAnswer] = useState('');
+    const [checkboxAnswer, setCheckboxAnswer] = useState([]);
+    const [paragraphAnswer, setParagraphAnswer] = useState('');
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
     }, [quesCode]);
+    
+    const handleCheckbox = (e) => {
+        const newCheckboxAnswer = e.target.value;
+        const ans = [...checkboxAnswer, newCheckboxAnswer]
+        setCheckboxAnswer(ans);
+    }
+
     const handleSubmit = e => {
-        const newResponse = { studentName, studentEmail, quesSet: [...questionSet] };
+        const newResponse = { studentName, studentEmail, questionSet: questionSet.questions , multipleAnswer, checkboxAnswer, paragraphAnswer };
         fetch('https://agile-retreat-39153.herokuapp.com/responses', {
             method: 'POST',
             headers: {
@@ -25,14 +36,14 @@ const ExamForm = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    window.location.reload();
+
                 }
             })
         e.preventDefault();
     }
     return (
         <div className="py-4 flex flex-col items-center justify-center">
-            <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
+                <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
                     <p className="text-3xl">{questionSet?.instituteName}</p>
                     <p className="text-lg">{questionSet?.examTitle}</p>
@@ -46,7 +57,7 @@ const ExamForm = () => {
             <div className="mt-5 w-full md:w-2/3">
                 <div className="mx-4 md:mx-0">
                     {
-                        questionSet?.questions?.map(ques => <div className="w-full">
+                        questionSet?.questions?.map(ques => <div key={ques._id} className="w-full">
                             <div className="flex justify-between">
                                 <p>{ques.questionTitle}</p>
                                 <p>{ques.mark}</p>
@@ -56,10 +67,11 @@ const ExamForm = () => {
                                     ques.option1 && <>
                                         <input
                                             type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
+                                            name={ques.question === "check-box" ? "" : "group1"}
                                             className="mr-2"
                                             id="option1"
                                             value={ques.option1}
+                                            onClick={(e)=>{ques.question === "check-box"? handleCheckbox(e) : setMultipleAnswer(e.target.value)}}
                                         />
                                         <label htmlFor="option1">{ques.option1}</label><br />
                                     </>
@@ -68,10 +80,11 @@ const ExamForm = () => {
                                     ques.option2 && <>
                                         <input
                                             type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
+                                            name={ques.question === "check-box" ? "" : "group1"}
                                             className="mr-2"
                                             id="option2"
                                             value={ques.option2}
+                                            onClick={(e)=>{ques.question === "check-box"? handleCheckbox(e) : setMultipleAnswer(e.target.value)}}
                                         />
                                         <label htmlFor="option2">{ques.option2}</label><br />
                                     </>
@@ -81,10 +94,11 @@ const ExamForm = () => {
                                     <>
                                         <input
                                             type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
+                                            name={ques.question === "check-box" ? "" : "group1"}
                                             className="mr-2"
                                             id="option3"
                                             value={ques.option3}
+                                            onClick={(e)=>{ques.question === "check-box"? handleCheckbox(e) : setMultipleAnswer(e.target.value)}}
                                         />
                                         <label htmlFor="option3">{ques.option3}</label><br />
                                     </>
@@ -94,10 +108,11 @@ const ExamForm = () => {
                                     <>
                                         <input
                                             type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
+                                            name={ques.question === "check-box" ? "" : "group1"}
                                             className="mr-2"
                                             id="option4"
                                             value={ques.option4}
+                                            onClick={(e)=>{ques.question === "check-box"? handleCheckbox(e) : setMultipleAnswer(e.target.value)}}
                                         />
                                         <label htmlFor="option4">{ques.option4}</label><br />
                                     </>
@@ -107,10 +122,11 @@ const ExamForm = () => {
                                     <>
                                         <input
                                             type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
+                                            name={ques.question === "check-box" ? "" : "group1"}
                                             className="mr-2"
                                             id="option5"
                                             value={ques.option5}
+                                            onClick={(e)=>{ques.question === "check-box"? handleCheckbox(e) : setMultipleAnswer(e.target.value)}}
                                         />
                                         <label htmlFor="option5">{ques.option5}</label><br />
                                     </>
@@ -124,6 +140,7 @@ const ExamForm = () => {
                                         rows="4"
                                         className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2 pl-2"
                                         placeholder="Answer"
+                                        onBlur={(e)=>setParagraphAnswer(e.target.value)}
                                     ></textarea>
                                 </>
                             }
@@ -161,7 +178,7 @@ const ExamForm = () => {
                 />
                 </div>
             </div>
-            <button onClick={handleSubmit} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Submit</button>
+            <Link to="/success"><button onClick={(e)=>handleSubmit(e)} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Submit</button></Link>
         </div >
     );
 };
