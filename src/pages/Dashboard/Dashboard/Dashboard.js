@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import img1 from '../../../images/plus-icon-vector-add-addition-260nw-1305881509 (1).jpg';
+import img1 from '../../../images/pexels-photo-356079.jpeg';
+import img2 from '../../../images/exam.jpg';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
@@ -24,7 +25,7 @@ const Dashboard = () => {
                     <p className="font-bold">Create A Question</p>
                 </Link>
                 <Link to="/exam" className="border border-transparent hover:border-purple-500 cursor-pointer">
-                    <img src={img1} alt="" className="" />
+                    <img src={img2} alt="" className="" />
                     <p className="font-bold">Give A Exam</p>
                 </Link>
                 {

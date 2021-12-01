@@ -1,14 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import useAuth from '../../../../hooks/useAuth';
 
-const QuestionSet = () => {
-    const { quesId } = useParams();
+const ExamForm = () => {
+    const { quesCode } = useParams();
+    const { user } = useAuth();
+    const [studentName, setStudentName] = useState('');
+    const [studentEmail, setStudentEmail] = useState('');
     const [questionSet, setQuestionSet] = useState([]);
     useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesId}`)
+        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
-    }, [quesId]);
+    }, [quesCode]);
+    const handleSubmit = e => {
+        const newResponse = { studentName, studentEmail, quesSet: [...questionSet] };
+        fetch('https://agile-retreat-39153.herokuapp.com/responses', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newResponse)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    window.location.reload();
+                }
+            })
+        e.preventDefault();
+    }
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
@@ -118,12 +139,31 @@ const QuestionSet = () => {
                             }
                         </div>)
                     }
+                    <input
+                    type="text"
+                    name=""
+                    id=""
+                    className="w-full text-lg border mb-3 py-2 rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2"
+                    placeholder="Name"
+                    defaultValue={user.displayName}
+                    onBlur={(e) => setStudentName(e.target.value)}
+                    required="required"
+                />
+                    <input
+                    type="email"
+                    name=""
+                    id=""
+                    className="w-full text-lg border mb-3 py-2 rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2"
+                    placeholder="Email Address"
+                    defaultValue={user.email}
+                    onBlur={(e) => setStudentEmail(e.target.value)}
+                    required="required"
+                />
                 </div>
             </div>
-            <p>Question code: {questionSet?._id}</p>
-            <button className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-3 my-4">Reuse Question set</button>
+            <button onClick={handleSubmit} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Submit</button>
         </div >
     );
 };
 
-export default QuestionSet;
+export default ExamForm;
