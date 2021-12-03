@@ -178,7 +178,7 @@ const ExamForm = () => {
                 />
                 </div>
             </div>
-            <Link to="/success"><button onClick={(e)=>handleSubmit(e)} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Submit</button></Link>
+            <button onClick={(e)=>handleSubmit(e)} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4"><Link to="/success" >Submit</Link></button>
         </div >
     );
 };
