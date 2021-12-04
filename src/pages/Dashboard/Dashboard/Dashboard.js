@@ -29,7 +29,7 @@ const Dashboard = () => {
                     <p className="font-bold">Give A Exam</p>
                 </Link>
                 {
-                    questionSet.map(ques => <Link to={`/questionSet/${ques._id}`} className="border border-transparent hover:border-purple-500 cursor-pointer">
+                    questionSet.map(ques => <Link key={ques._id} to={`/questionSet/${ques._id}`} className="border border-transparent hover:border-purple-500 cursor-pointer">
                         <div className="text-center bg-white h-full py-3">
                             <p>{ques.examTitle}</p>
                             <p>{ques.examDescription}</p>

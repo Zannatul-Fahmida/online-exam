@@ -57,7 +57,7 @@ const QuestionForm = () => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestions(data))
-    }, []);
+    }, [user.email]);
     const handleUploadQuestion = () => {
         const email = user.email;
         const newQuestionSet = { email, examTitle, instituteName, examDescription, examMarks, examTime, questions: [...questions], date, endingTime, startingTime };

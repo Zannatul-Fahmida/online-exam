@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const Exam = () => {
     const [questionCode, setQuestionCode] = useState('');
-    console.log(questionCode);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="w-full md:w-1/2 my-7 px-6 md:px-0">
