@@ -16,6 +16,7 @@ import QuestionSet from './pages/Dashboard/QuestionForm/QuestionSet/QuestionSet'
 import Exam from './pages/Dashboard/ExamForm/Exam/Exam';
 import ExamForm from './pages/Dashboard/ExamForm/ExamForm/ExamForm';
 import Success from './pages/Dashboard/ExamForm/Success/Success';
+import QuestionForm from './pages/Dashboard/QuestionForm/QuestionForm/QuestionForm';
 
 function App() {
   return (
@@ -48,13 +49,13 @@ function App() {
             <Dashboard></Dashboard>
           </PrivateRoute>
           <PrivateRoute path="/questionSet/:quesId">
-            <QuestionSet></QuestionSet>
+            <FormTab />
           </PrivateRoute>
           <PrivateRoute path="/form">
-            <FormTab></FormTab>
+            <QuestionForm />
           </PrivateRoute>
           <PrivateRoute path="/exam">
-            <Exam></Exam>
+            <Exam />
           </PrivateRoute>
           <PrivateRoute path="/examForm/:quesCode">
             <ExamForm></ExamForm>

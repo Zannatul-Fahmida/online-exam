@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import QuestionForm from '../QuestionForm/QuestionForm/QuestionForm';
+import QuestionSet from '../QuestionForm/QuestionSet/QuestionSet';
 import Responses from '../Responses/Responses';
 
 const FormTab = () => {
@@ -12,7 +12,7 @@ const FormTab = () => {
             </div>
             {
                 active === "questions"?
-                <QuestionForm />
+                <QuestionSet />
                 :
                 <Responses />
             }
