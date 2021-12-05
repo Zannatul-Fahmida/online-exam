@@ -13,12 +13,7 @@ const Dashboard = () => {
             .then(data => setQuestionSet(data))
     }, [user.email]);
     return (
-        <div className="bg-indigo-100 md:px-12 py-8">
-            <div className="flex justify-between">
-                <div>
-                    <p>Start A New Exam</p>
-                </div>
-            </div>
+        <div className="bg-indigo-100 md:px-12 py-10">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
                 <Link to="/form" className="border border-transparent hover:border-purple-500 cursor-pointer">
                     <img src={img1} alt="" className="" />
