@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
+import Calculator from '../Calculator/Calculator';
 
 const ExamForm = () => {
     const { quesCode } = useParams();
@@ -12,6 +13,7 @@ const ExamForm = () => {
     const [multipleAnswer, setMultipleAnswer] = useState('');
     const [checkboxAnswer, setCheckboxAnswer] = useState([]);
     const [paragraphAnswer, setParagraphAnswer] = useState('');
+    const [showCalculator, setShowCalculator] = useState(false);
     let date = new Date();
     let dd = date.getDate();
     let mm = date.getMonth() + 1;
@@ -28,7 +30,7 @@ const ExamForm = () => {
     let minutes = date.getMinutes();
     hours = hours < 10 ? '0' + hours : hours;
     minutes = minutes < 10 ? '0' + minutes : minutes;
-    const currentTime = hours + ':' + minutes + ' ' ;
+    const currentTime = hours + ':' + minutes + ' ';
 
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
@@ -198,7 +200,18 @@ const ExamForm = () => {
                             />
                         </div>
                     </div>
-                    <button onClick={(e) => handleSubmit(e)} className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4"><Link to="/success" >Submit</Link></button>
+                    <div className="relative">
+                        {
+                            showCalculator ? <>
+                                <button onClick={()=>setShowCalculator(false)} className="text-red-600 font-bold text-xl absolute left-2">X</button>
+                                <Calculator />
+                            </> : ''
+                        }
+                    </div>
+                    <div className="flex my-4">
+                        <button onClick={() => setShowCalculator(true)} className={showCalculator ? "text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 mr-2 hidden" : "text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 mr-2 block"}>Calculator</button>
+                        <button onClick={(e) => handleSubmit(e)} className="text-xl text-white bg-purple-900 rounded-md px-5 py-2"><Link to="/success" >Submit</Link></button>
+                    </div>
                 </>
                     :
                     <div>
