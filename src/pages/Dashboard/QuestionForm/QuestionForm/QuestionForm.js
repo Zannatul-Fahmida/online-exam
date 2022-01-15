@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import {toast, Toaster} from 'react-hot-toast';
 import useAuth from '../../../../hooks/useAuth';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
@@ -22,6 +24,7 @@ const QuestionForm = () => {
     const [question, setQuestion] = useState("multi-choice");
     const [questionTitle, setQuestionTitle] = useState('');
     const [option1, setOption1] = useState('');
+    const [option1Img, setOption1Img] = useState('');
     const [option2, setOption2] = useState('');
     const [option3, setOption3] = useState('');
     const [option4, setOption4] = useState('');
@@ -36,19 +39,32 @@ const QuestionForm = () => {
         const ans = [...answer, newAnswer]
         setAnswer(ans);
     }
-    const handleAddQuestion = e => {
-        const newQuestion = { email: user.email, questionTitle, option1, option2, option3, option4, option5, mark, answer, question };
-        fetch('https://agile-retreat-39153.herokuapp.com/addQuestions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newQuestion)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
-                    window.location.reload();
+    const handleAddQuestion = async e => {
+        const loading = toast.loading('Uploading...Please wait!')
+        let imageURL = "";
+        if(option1Img){
+            const imageData = new FormData();
+            imageData.set('key', 'acb2d4c7a68ef1bf06d396d73adb600a')
+            imageData.append('image', option1Img);
+            try {
+                const res = await axios.post("https://api.imgbb.com/1/upload", imageData);
+                console.log(res)
+                imageURL = res.data.data.display_url;
+                toast.dismiss(loading);
+            } catch (error) {
+                toast.dismiss(loading);
+                return toast.error('Failed to upload the image!');
+            }
+        }
+        const newQuestion = { email: user.email, questionTitle, option1,option1Img: imageURL, option2, option3, option4, option5, mark, answer, question };
+        console.log('questionset', newQuestion);
+        axios.post('http://localhost:5000/addQuestions', newQuestion)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast.success('Your Question Successfully Added', {
+                        id: loading,
+                    });
+                    // return toast.success("Successfully Added!", "Your car has been successfully added.", "success");
                 }
             })
         e.preventDefault();
@@ -188,6 +204,7 @@ const QuestionForm = () => {
                                 <CheckBox
                                     setQuestionTitle={setQuestionTitle}
                                     setOption1={setOption1}
+                                    setOption1Img={setOption1Img}
                                     setOption2={setOption2}
                                     setOption3={setOption3}
                                     setOption4={setOption4}
@@ -249,7 +266,8 @@ const QuestionForm = () => {
                     </div>
                     :
                     ''
-            }
+                }
+                <Toaster />
         </div >
     );
 };

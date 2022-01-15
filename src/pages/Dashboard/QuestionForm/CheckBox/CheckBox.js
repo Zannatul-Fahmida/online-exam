@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiImageAdd } from 'react-icons/bi';
 
-const CheckBox = ({ setOption1, setOption2, setOption3, setOption4, setOption5, setQuestionTitle }) => {
+const CheckBox = ({ setOption1, setOption1Img, setOption2, setOption3, setOption4, setOption5, setQuestionTitle }) => {
     return (
         <div className="flex flex-col w-full">
 
@@ -30,7 +30,20 @@ const CheckBox = ({ setOption1, setOption2, setOption3, setOption4, setOption5, 
                     placeholder="Option 1"
                     onBlur={(e) => setOption1(e.target.value)}
                 />
-                <button className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-3">{<BiImageAdd className="text-2xl" />}</button>
+                {/* image upload section  */}
+                <div>
+                    <input
+                        type="file"
+                        id="upload"
+                        placeholder="Upload Photo"
+                        multiple
+                        style={{ display: "none" }}
+                        onChange={(e) => setOption1Img(e.target.files[0])}
+                    />
+                    <label htmlFor="upload">
+                        <div className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-3">{<BiImageAdd className="text-2xl" />}</div>
+                    </label>
+                </div>
             </div>
             <div className="flex items-center">
                 <input
