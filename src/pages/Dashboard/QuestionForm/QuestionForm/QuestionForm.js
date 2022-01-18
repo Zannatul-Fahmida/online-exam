@@ -44,7 +44,6 @@ const QuestionForm = () => {
         const ans = [...answer, newAnswer]
         setAnswer(ans);
     }
-    console.log(option1Img, option2Img);
     const handleAddQuestion = async e => {
         const loading = toast.loading('Uploading...Please wait!')
         
@@ -250,6 +249,8 @@ const QuestionForm = () => {
                             question === "paragraph" && <>
                                 <Paragraph
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                 ></Paragraph>
                                 <div className="flex mt-2">
                                     <input
@@ -266,6 +267,8 @@ const QuestionForm = () => {
                             question === "file-upload" && <>
                                 <FileUpload
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                 ></FileUpload>
                                 <div className="flex mt-2">
                                     <input

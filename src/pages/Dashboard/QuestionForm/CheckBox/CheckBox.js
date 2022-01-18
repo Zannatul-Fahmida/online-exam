@@ -1,53 +1,31 @@
-import axios from 'axios';
 import React from 'react';
-import toast from 'react-hot-toast';
 import { BiImageAdd } from 'react-icons/bi';
+import useSingleImageUpload from '../../../../hooks/useSingleImageUpload';
 
 const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption2Img, option2Img, setOption3, setOption3Img, option3Img, setOption4, setOption4Img, option4Img, setOption5, setOption5Img, option5Img, setQuestionTitle, setQuestionTitleImg, questionTitleImg }) => {
     const QuestionTitleImgUpload = (e) => {
-        singleImageUpload(e.target.files[0])
+        useSingleImageUpload(e.target.files[0])
             .then(res => setQuestionTitleImg(res))
     }
     const Option1ImgUpload = (e) => {
-        singleImageUpload(e.target.files[0])
+        useSingleImageUpload(e.target.files[0])
             .then(res => setOption1Img(res))
     }
     const Option2ImgUpload = (e) => {
-        singleImageUpload(e.target.files[0])
+        useSingleImageUpload(e.target.files[0])
             .then(res => setOption2Img(res))
     }
     const Option3ImgUpload = (e) => {
-        singleImageUpload(e.target.files[0])
+        useSingleImageUpload(e.target.files[0])
             .then(res => setOption3Img(res))
     }
     const Option4ImgUpload = (e) => {
-        singleImageUpload(e.target.files[0])
+        useSingleImageUpload(e.target.files[0])
             .then(res => setOption4Img(res))
     }
     const Option5ImgUpload = (e) => {
-        singleImageUpload(e.target.files[0])
+        useSingleImageUpload(e.target.files[0])
             .then(res => setOption5Img(res))
-    }
-    const singleImageUpload = async e => {
-        const loading = toast.loading('Uploading...Please wait!')
-        let imageURL = "";
-        if (e) {
-            const imageData = new FormData();
-            imageData.set('key', 'acb2d4c7a68ef1bf06d396d73adb600a')
-            imageData.append('image', e);
-            console.log("image data", imageData)
-            try {
-                const res = await axios.post("https://api.imgbb.com/1/upload", imageData);
-                imageURL = res.data.data.display_url;
-                toast.success('Image Uploaded', {
-                    id: loading,
-                });
-            } catch (error) {
-                toast.dismiss(loading);
-                return toast.error('Failed to upload the image!');
-            }
-        }
-        return imageURL
     }
     return (
         <div className="flex flex-col w-full">
