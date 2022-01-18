@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import {toast, Toaster} from 'react-hot-toast';
 import useAuth from '../../../../hooks/useAuth';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
@@ -21,11 +23,17 @@ const QuestionForm = () => {
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState("multi-choice");
     const [questionTitle, setQuestionTitle] = useState('');
+    const [questionTitleImg, setQuestionTitleImg] = useState('');
     const [option1, setOption1] = useState('');
+    const [option1Img, setOption1Img] = useState('');
     const [option2, setOption2] = useState('');
+    const [option2Img, setOption2Img] = useState('');
     const [option3, setOption3] = useState('');
+    const [option3Img, setOption3Img] = useState('');
     const [option4, setOption4] = useState('');
+    const [option4Img, setOption4Img] = useState('');
     const [option5, setOption5] = useState('');
+    const [option5Img, setOption5Img] = useState('');
     const [answer, setAnswer] = useState('');
     const [mark, setMark] = useState(0);
     const handleMultipleChange = (e) => {
@@ -36,19 +44,18 @@ const QuestionForm = () => {
         const ans = [...answer, newAnswer]
         setAnswer(ans);
     }
-    const handleAddQuestion = e => {
-        const newQuestion = { email: user.email, questionTitle, option1, option2, option3, option4, option5, mark, answer, question };
-        fetch('https://agile-retreat-39153.herokuapp.com/addQuestions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newQuestion)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
-                    window.location.reload();
+    const handleAddQuestion = async e => {
+        const loading = toast.loading('Uploading...Please wait!')
+        
+        const newQuestion = { email: user.email, questionTitle,questionTitleImg, option1,option1Img, option2,option2Img, option3,option3Img, option4,option4Img, option5,option5Img, mark, answer, question };
+        console.log('questionset', newQuestion);
+        axios.post('http://localhost:5000/addQuestions', newQuestion)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast.success('Your Question Successfully Added', {
+                        id: loading,
+                    });
+                    // return toast.success("Successfully Added!", "Your car has been successfully added.", "success");
                 }
             })
         e.preventDefault();
@@ -156,11 +163,23 @@ const QuestionForm = () => {
                             question === "multi-choice" && <>
                                 <MultiChoice
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                     setOption1={setOption1}
+                                    setOption1Img={setOption1Img}
+                                    option1Img={option1Img}
                                     setOption2={setOption2}
+                                    setOption2Img={setOption2Img}
+                                    option2Img={option2Img}
                                     setOption3={setOption3}
+                                    setOption3Img={setOption3Img}
+                                    option3Img={option3Img}
                                     setOption4={setOption4}
+                                    setOption4Img={setOption4Img}
+                                    option4Img={option4Img}
                                     setOption5={setOption5}
+                                    setOption5Img={setOption5Img}
+                                    option5Img={option5Img}
                                 ></MultiChoice>
                                 <div className="flex flex-wrap md:flex-row items-center mt-2">
                                     <label className="block pb-3 md:pb-0">
@@ -187,11 +206,23 @@ const QuestionForm = () => {
                             question === "check-box" && <>
                                 <CheckBox
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                     setOption1={setOption1}
+                                    setOption1Img={setOption1Img}
+                                    option1Img={option1Img}
                                     setOption2={setOption2}
+                                    setOption2Img={setOption2Img}
+                                    option2Img={option2Img}
                                     setOption3={setOption3}
+                                    setOption3Img={setOption3Img}
+                                    option3Img={option3Img}
                                     setOption4={setOption4}
+                                    setOption4Img={setOption4Img}
+                                    option4Img={option4Img}
                                     setOption5={setOption5}
+                                    setOption5Img={setOption5Img}
+                                    option5Img={option5Img}
                                 ></CheckBox>
                                 <div className="flex flex-wrap md:flex-row items-center mt-2">
                                     <label className="block pb-3 md:pb-0">
@@ -218,6 +249,8 @@ const QuestionForm = () => {
                             question === "paragraph" && <>
                                 <Paragraph
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                 ></Paragraph>
                                 <div className="flex mt-2">
                                     <input
@@ -234,6 +267,8 @@ const QuestionForm = () => {
                             question === "file-upload" && <>
                                 <FileUpload
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                 ></FileUpload>
                                 <div className="flex mt-2">
                                     <input
@@ -249,7 +284,8 @@ const QuestionForm = () => {
                     </div>
                     :
                     ''
-            }
+                }
+                <Toaster />
         </div >
     );
 };
