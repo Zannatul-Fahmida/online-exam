@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -14,23 +15,8 @@ const ExamForm = () => {
     const [checkboxAnswer, setCheckboxAnswer] = useState([]);
     const [paragraphAnswer, setParagraphAnswer] = useState('');
     const [showCalculator, setShowCalculator] = useState(false);
-    let date = new Date();
-    let dd = date.getDate();
-    let mm = date.getMonth() + 1;
-    let yyyy = date.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    const today = yyyy + '-' + mm + '-' + dd;
-
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    const currentTime = hours + ':' + minutes + ' ';
+    const today = moment().format('YYYY-MM-DD');
+    const currentTime = moment().format('HH:mm');
 
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
@@ -75,7 +61,7 @@ const ExamForm = () => {
                 </div>
             </div>
             {
-                questionSet?.date === today ? <>
+                questionSet?.date === today && currentTime >= questionSet.startingTime && currentTime <= questionSet.endingTime && <>
                     <div className="mt-5 w-full md:w-2/3">
                         <div className="mx-4 md:mx-0">
                             {
@@ -203,7 +189,7 @@ const ExamForm = () => {
                     <div className="relative">
                         {
                             showCalculator ? <>
-                                <button onClick={()=>setShowCalculator(false)} className="text-red-600 font-bold text-xl absolute left-2">X</button>
+                                <button onClick={() => setShowCalculator(false)} className="text-red-600 font-bold text-xl absolute left-2">X</button>
                                 <Calculator />
                             </> : ''
                         }
@@ -213,10 +199,22 @@ const ExamForm = () => {
                         <button onClick={(e) => handleSubmit(e)} className="text-xl text-white bg-purple-900 rounded-md px-5 py-2"><Link to="/success" >Submit</Link></button>
                     </div>
                 </>
-                    :
-                    <div>
-                        <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
-                    </div>
+            }
+            {
+                questionSet?.date > today || questionSet?.date === today && currentTime >= questionSet.endingTime ?
+                <div>
+                    <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
+                </div>
+                :
+                ''
+            }
+            {
+                questionSet?.date < today || questionSet?.date === today && currentTime <= questionSet.startingTime ?
+                <div>
+                    <p className="text-4xl mt-6">The exam was held {questionSet.date} at {questionSet.startingTime}</p>
+                </div>
+                :
+                ''
             }
         </div >
     );

@@ -96,7 +96,7 @@ const QuestionForm = () => {
                 setExamTime={setExamTime}
             />
             {/* Form body */}
-            {questions.length >0 && <>
+            {questions.length > 0 && <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mt-4">
                 <div className="flex justify-between items-center">
                     <label htmlFor="startTime">Starting Time</label>
@@ -179,7 +179,7 @@ const QuestionForm = () => {
                                         placeholder="Mark"
                                         onBlur={(e) => setMark(e.target.value)}
                                     />
-                                    <button onClick={handleAddQuestion} className="border border-gray-200 hover:bg-gray-100 p-2 rounded-full ">Question Done</button>
+                                    <button onClick={handleAddQuestion} className="border border-gray-200 hover:bg-gray-100 p-2 rounded-full">Question Done</button>
                                 </div>
                             </>
                         }
@@ -242,7 +242,7 @@ const QuestionForm = () => {
                                         placeholder="Mark"
                                         onBlur={(e) => setMark(e.target.value)}
                                     />
-                                    <button onClick={handleAddQuestion} className="border border-gray-200 hover:bg-gray-100 p-2 rounded-full ">Question Done</button>
+                                    <button onClick={handleAddQuestion} className="border border-gray-200 hover:bg-gray-100 p-2 rounded-full">Question Done</button>
                                 </div>
                             </>
                         }
