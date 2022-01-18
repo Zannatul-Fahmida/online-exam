@@ -23,12 +23,17 @@ const QuestionForm = () => {
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState("multi-choice");
     const [questionTitle, setQuestionTitle] = useState('');
+    const [questionTitleImg, setQuestionTitleImg] = useState('');
     const [option1, setOption1] = useState('');
     const [option1Img, setOption1Img] = useState('');
     const [option2, setOption2] = useState('');
+    const [option2Img, setOption2Img] = useState('');
     const [option3, setOption3] = useState('');
+    const [option3Img, setOption3Img] = useState('');
     const [option4, setOption4] = useState('');
+    const [option4Img, setOption4Img] = useState('');
     const [option5, setOption5] = useState('');
+    const [option5Img, setOption5Img] = useState('');
     const [answer, setAnswer] = useState('');
     const [mark, setMark] = useState(0);
     const handleMultipleChange = (e) => {
@@ -39,24 +44,11 @@ const QuestionForm = () => {
         const ans = [...answer, newAnswer]
         setAnswer(ans);
     }
+    console.log(option1Img, option2Img);
     const handleAddQuestion = async e => {
         const loading = toast.loading('Uploading...Please wait!')
-        let imageURL = "";
-        if(option1Img){
-            const imageData = new FormData();
-            imageData.set('key', 'acb2d4c7a68ef1bf06d396d73adb600a')
-            imageData.append('image', option1Img);
-            try {
-                const res = await axios.post("https://api.imgbb.com/1/upload", imageData);
-                console.log(res)
-                imageURL = res.data.data.display_url;
-                toast.dismiss(loading);
-            } catch (error) {
-                toast.dismiss(loading);
-                return toast.error('Failed to upload the image!');
-            }
-        }
-        const newQuestion = { email: user.email, questionTitle, option1,option1Img: imageURL, option2, option3, option4, option5, mark, answer, question };
+        
+        const newQuestion = { email: user.email, questionTitle,questionTitleImg, option1,option1Img, option2,option2Img, option3,option3Img, option4,option4Img, option5,option5Img, mark, answer, question };
         console.log('questionset', newQuestion);
         axios.post('http://localhost:5000/addQuestions', newQuestion)
             .then(res => {
@@ -172,11 +164,23 @@ const QuestionForm = () => {
                             question === "multi-choice" && <>
                                 <MultiChoice
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                     setOption1={setOption1}
+                                    setOption1Img={setOption1Img}
+                                    option1Img={option1Img}
                                     setOption2={setOption2}
+                                    setOption2Img={setOption2Img}
+                                    option2Img={option2Img}
                                     setOption3={setOption3}
+                                    setOption3Img={setOption3Img}
+                                    option3Img={option3Img}
                                     setOption4={setOption4}
+                                    setOption4Img={setOption4Img}
+                                    option4Img={option4Img}
                                     setOption5={setOption5}
+                                    setOption5Img={setOption5Img}
+                                    option5Img={option5Img}
                                 ></MultiChoice>
                                 <div className="flex flex-wrap md:flex-row items-center mt-2">
                                     <label className="block pb-3 md:pb-0">
@@ -203,12 +207,23 @@ const QuestionForm = () => {
                             question === "check-box" && <>
                                 <CheckBox
                                     setQuestionTitle={setQuestionTitle}
+                                    setQuestionTitleImg={setQuestionTitleImg}
+                                    questionTitleImg={questionTitleImg}
                                     setOption1={setOption1}
                                     setOption1Img={setOption1Img}
+                                    option1Img={option1Img}
                                     setOption2={setOption2}
+                                    setOption2Img={setOption2Img}
+                                    option2Img={option2Img}
                                     setOption3={setOption3}
+                                    setOption3Img={setOption3Img}
+                                    option3Img={option3Img}
                                     setOption4={setOption4}
+                                    setOption4Img={setOption4Img}
+                                    option4Img={option4Img}
                                     setOption5={setOption5}
+                                    setOption5Img={setOption5Img}
+                                    option5Img={option5Img}
                                 ></CheckBox>
                                 <div className="flex flex-wrap md:flex-row items-center mt-2">
                                     <label className="block pb-3 md:pb-0">
