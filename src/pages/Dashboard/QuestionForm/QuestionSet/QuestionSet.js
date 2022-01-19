@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const QuestionSet = () => {
     const { quesId } = useParams();
@@ -121,7 +122,9 @@ const QuestionSet = () => {
                 </div>
             </div>
             <p>Question code: {questionSet?._id}</p>
+            <Link to={`/reuseQuestion/${questionSet._id}`}>
             <button className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Reuse Question set</button>
+            </Link>
         </div >
     );
 };

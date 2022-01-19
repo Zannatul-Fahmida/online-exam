@@ -47,7 +47,7 @@ const QuestionForm = () => {
     const handleAddQuestion = async e => {
         const loading = toast.loading('Uploading...Please wait!')
         
-        const newQuestion = { email: user.email, questionTitle,questionTitleImg, option1,option1Img, option2,option2Img, option3,option3Img, option4,option4Img, option5,option5Img, mark, answer, question };
+        const newQuestion = { email: user.email, questionTitle, questionTitleImg, option1, option1Img, option2,option2Img, option3, option3Img, option4, option4Img, option5, option5Img, mark, answer, question };
         console.log('questionset', newQuestion);
         axios.post('http://localhost:5000/addQuestions', newQuestion)
             .then(res => {
@@ -158,7 +158,7 @@ const QuestionForm = () => {
             </div>
             {
                 show ?
-                    <div className="w-full md:w-1/2 my-7 px-6 md:px-0">
+                    <div className="w-full md:w-2/3 my-7 px-6 md:px-0">
                         {
                             question === "multi-choice" && <>
                                 <MultiChoice

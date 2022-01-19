@@ -202,19 +202,19 @@ const ExamForm = () => {
             }
             {
                 questionSet?.date > today || questionSet?.date === today && currentTime >= questionSet.endingTime ?
-                <div>
-                    <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
-                </div>
-                :
-                ''
+                    <div>
+                        <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
+                    </div>
+                    :
+                    ''
             }
             {
                 questionSet?.date < today || questionSet?.date === today && currentTime <= questionSet.startingTime ?
-                <div>
-                    <p className="text-4xl mt-6">The exam was held {questionSet.date} at {questionSet.startingTime}</p>
-                </div>
-                :
-                ''
+                    <div>
+                        <p className="text-4xl mt-6">The exam was held {questionSet.date} at {questionSet.startingTime}</p>
+                    </div>
+                    :
+                    ''
             }
         </div >
     );
