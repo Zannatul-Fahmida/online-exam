@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 
 const ReuseQuestion = () => {
     const { questionId } = useParams();
-    const [instituteName, setInstituteName] = useState('');
-    const [examTitle, setExamTitle] = useState('');
-    const [examDescription, setExamDescription] = useState('');
-    const [examTime, setExamTime] = useState('');
-    const [startingTime, setStartingTime] = useState('');
-    const [endingTime, setEndingTime] = useState('');
-    const [date, setDate] = useState('');
     const [questions, setQuestions] = useState({});
+    const [instituteName, setInstituteName] = useState(`${questions?.instituteName}`);
+    const [examTitle, setExamTitle] = useState(`${questions.examTitle}`);
+    const [examDescription, setExamDescription] = useState(`${questions.examDescription}`);
+    const [examTime, setExamTime] = useState(`${questions.examTime}`);
+    const [startingTime, setStartingTime] = useState(`${questions.startingTime}`);
+    const [endingTime, setEndingTime] = useState(`${questions.endingTime}`);
+    const [date, setDate] = useState(`${questions.date}`);
     const handleSubmit = e => {
-        const details = {instituteName, examTitle, examTime, examDescription, startingTime, endingTime, date};
+        const details = { instituteName, examTitle, examTime, examDescription, startingTime, endingTime, date };
         const url = `https://agile-retreat-39153.herokuapp.com/questionSet/${questionId}`
         fetch(url, {
             method: 'PUT',
@@ -26,7 +26,6 @@ const ReuseQuestion = () => {
             .then(data => {
                 if (data.modifiedCount) {
                     toast.success('Updated Successfully');
-                    window.location.reload();
                 }
             })
         e.preventDefault();
@@ -41,6 +40,7 @@ const ReuseQuestion = () => {
 
     return (
         <div>
+            <Toaster />
             <div className="container px-5 py-8 mx-auto">
                 <div className="flex flex-col text-center w-full mb-12 items-center">
                     <p className="text-4xl title-font mb-4 font-bold text-purple-900">Reuse Questions</p>

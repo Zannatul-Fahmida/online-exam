@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import CommonBtn from '../CommonBtn/CommonBtn';
 
 const NavItems = () => {
     const { user, logOut } = useAuth();
+    const [active, setActive] = useState("home");
     return (
         <>
-            <Link className="p-4 active:border-b-4 border-purple-600 text-xl hover:text-purple-800 m-2" to="/">
+            <Link onClick={() => setActive("home")} className={active==="home" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"} to="/">
                 Home
             </Link>
-            <Link className="p-4 active:border-b-4 border-purple-600 text-xl hover:text-purple-800 m-2" to="/about">
+            <Link onClick={() => setActive("about")} className={active==="about" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"} to="/about">
                 About
             </Link>
             <Link
-                className="p-4 active:border-b-4 border-purple-600 text-xl hover:text-purple-800 m-2"
+                 onClick={() => setActive("features")}
+                className={active==="features" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"}
                 to="/features"
             >
                 Features
             </Link>
             <Link
-                className="p-4 active:border-b-4 border-purple-600 text-xl hover:text-purple-800 m-2"
+                 onClick={() => setActive("contact")}
+                className={active==="contact" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"}
                 to="/contact"
             >
                 Contact
@@ -28,7 +31,8 @@ const NavItems = () => {
             {user.email ?
                 <>
                 <Link
-                className="p-4 active:border-b-4 border-purple-600 text-xl hover:text-purple-800 m-2"
+                 onClick={() => setActive("dashboard")}
+                className={active==="dashboard" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"}
                 to="/dashboard"
             >
                 Dashboard

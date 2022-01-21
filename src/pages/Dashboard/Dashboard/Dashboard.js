@@ -3,15 +3,30 @@ import img1 from '../../../images/pexels-photo-356079.jpeg';
 import img2 from '../../../images/exam.jpg';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
+import { ImCross } from 'react-icons/im';
+import { HiOutlineViewList } from 'react-icons/hi';
 
 const Dashboard = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [questionSet, setQuestionSet] = useState([]);
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/myQuestionSet/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
     }, [user.email]);
+    const handleDelete = id => {
+        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    window.location.reload();
+                    const remaining = questionSet.filter(ques => ques._id !== id);
+                    setQuestionSet(remaining);
+                }
+            })
+    }
     return (
         <div className="bg-indigo-100 md:px-12 py-10">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
@@ -24,14 +39,18 @@ const Dashboard = () => {
                     <p className="font-bold">Give A Exam</p>
                 </Link>
                 {
-                    questionSet.map(ques => <Link key={ques._id} to={`/questionSet/${ques._id}`} className="border border-transparent hover:border-purple-500 cursor-pointer">
-                        <div className="text-center bg-white h-full py-3">
-                            <p>{ques.examTitle}</p>
+                    questionSet.map(ques => <div key={ques._id} className="border border-transparent hover:border-purple-500">
+                        <div className="text-center bg-white h-full pb-3">
+                            <div className="flex justify-around bg-pink-50 py-3">
+                                <Link to={`/questionSet/${ques._id}`} className="cursor-pointer">{<HiOutlineViewList className="text-xl" />}</Link>
+                                <button onClick={() => handleDelete(ques._id)}>{<ImCross className="text-red-700" />}</button>
+                            </div>
+                            <p className="font-bold">{ques.examTitle}</p>
                             <p>{ques.examDescription}</p>
                             <p>{ques.date}</p>
                             <p>{ques.examTime}</p>
                         </div>
-                    </Link>)
+                    </div>)
                 }
             </div>
         </div>
