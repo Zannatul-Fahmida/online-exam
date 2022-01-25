@@ -1,14 +1,25 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router';
 
 const QuestionSet = () => {
     const { quesId } = useParams();
+    const [loading, setLoading] = useState(true)
     const [questionSet, setQuestionSet] = useState([]);
+    const [questions, setQuestions] = useState([]);
     useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesId}`)
-            .then(res => res.json())
-            .then(data => setQuestionSet(data))
+        axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesId}`)
+            .then(res => {
+                setQuestionSet(res.data);
+                setQuestions(res.data.questions)
+                setLoading(false);
+            })
+            .catch(error => toast.error(error.message))
     }, [quesId]);
+    // const { questions } = questionSet;
+    console.log("question from state", questions)
+
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">

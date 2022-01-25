@@ -1,7 +1,10 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
+import QuestionSection from '../../QuestionForm/QuestionSection/QuestionSection';
 import Calculator from '../Calculator/Calculator';
 
 const ExamForm = () => {
@@ -14,6 +17,9 @@ const ExamForm = () => {
     const [checkboxAnswer, setCheckboxAnswer] = useState([]);
     const [paragraphAnswer, setParagraphAnswer] = useState('');
     const [showCalculator, setShowCalculator] = useState(false);
+    
+    const [loading, setLoading] = useState(true)
+    const [questions, setQuestions] = useState([]);
     let date = new Date();
     let dd = date.getDate();
     let mm = date.getMonth() + 1;
@@ -25,23 +31,27 @@ const ExamForm = () => {
         mm = '0' + mm;
     }
     const today = yyyy + '-' + mm + '-' + dd;
-
+    console.log(questionSet)
     let hours = date.getHours();
     let minutes = date.getMinutes();
     hours = hours < 10 ? '0' + hours : hours;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     const currentTime = hours + ':' + minutes + ' ';
 
-    useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
-            .then(res => res.json())
-            .then(data => setQuestionSet(data))
+   useEffect(() => {
+        axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
+        .then(res => {
+            setQuestionSet(res.data);
+            setQuestions(res.data.questions)
+          setLoading(false);
+        })
+        .catch(error => toast.error(error.message))
     }, [quesCode]);
 
     const handleCheckbox = (e) => {
         const newCheckboxAnswer = e.target.value;
-        const ans = [...checkboxAnswer, newCheckboxAnswer]
-        setCheckboxAnswer(ans);
+        // const ans = [...checkboxAnswer, newCheckboxAnswer]
+        setCheckboxAnswer(newCheckboxAnswer);
     }
 
     const handleSubmit = e => {
@@ -74,8 +84,20 @@ const ExamForm = () => {
                     </div>
                 </div>
             </div>
-            {
-                questionSet?.date === today ? <>
+            <div className="mt-5 w-full md:w-2/3">
+                {
+                    loading ?
+                        <div>Loading.............</div>
+                        :
+                        <QuestionSection
+                            loading={loading}
+                            quesId={quesCode}
+                            questions={questions}
+                            questionSet={questionSet} />
+                }
+            </div>
+            {/* {
+                <>
                     <div className="mt-5 w-full md:w-2/3">
                         <div className="mx-4 md:mx-0">
                             {
@@ -203,7 +225,7 @@ const ExamForm = () => {
                     <div className="relative">
                         {
                             showCalculator ? <>
-                                <button onClick={()=>setShowCalculator(false)} className="text-red-600 font-bold text-xl absolute left-2">X</button>
+                                <button onClick={() => setShowCalculator(false)} className="text-red-600 font-bold text-xl absolute left-2">X</button>
                                 <Calculator />
                             </> : ''
                         }
@@ -213,13 +235,15 @@ const ExamForm = () => {
                         <button onClick={(e) => handleSubmit(e)} className="text-xl text-white bg-purple-900 rounded-md px-5 py-2"><Link to="/success" >Submit</Link></button>
                     </div>
                 </>
-                    :
-                    <div>
-                        <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
-                    </div>
-            }
+                /* :
+                <div>
+                    <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
+                </div> 
+            } */}
         </div >
     );
 };
 
 export default ExamForm;
+
+// questionSet?.date === today ?

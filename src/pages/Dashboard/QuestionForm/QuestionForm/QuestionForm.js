@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {toast, Toaster} from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import useAuth from '../../../../hooks/useAuth';
 import CheckBox from '../CheckBox/CheckBox';
 import FileUpload from '../FileUpload/FileUpload';
@@ -25,6 +25,11 @@ const QuestionForm = () => {
     const [questionTitle, setQuestionTitle] = useState('');
     const [questionTitleImg, setQuestionTitleImg] = useState('');
     const [option1, setOption1] = useState('');
+    const [correctOption1, setCorrectOption1] = useState(false);
+    const [correctOption2, setCorrectOption2] = useState(false);
+    const [correctOption3, setCorrectOption3] = useState(false);
+    const [correctOption4, setCorrectOption4] = useState(false);
+    const [correctOption5, setCorrectOption5] = useState(false);
     const [option1Img, setOption1Img] = useState('');
     const [option2, setOption2] = useState('');
     const [option2Img, setOption2Img] = useState('');
@@ -44,12 +49,59 @@ const QuestionForm = () => {
         const ans = [...answer, newAnswer]
         setAnswer(ans);
     }
+    const correctAnswer = {
+        email: user.email,
+        title: questionTitle,
+        options: [
+            {
+                title: `${option1Img ? option1Img : option1}`,
+                correct: correctOption1
+            },
+            {
+                title: option2,
+                correct: correctOption2
+            },
+            {
+                title: option3,
+                correct: correctOption3
+            },
+            {
+                title: option4,
+                correct: correctOption4
+            },
+            {
+                title: option5,
+                correct: correctOption5
+            }
+        ],
+        mark,
+        answer,
+        question
+    }
+    console.log('correctans', correctAnswer);
+    
     const handleAddQuestion = async e => {
         const loading = toast.loading('Uploading...Please wait!')
+
+        const newQuestion = {
+            email: user.email,
+            questionTitle,
+            questionTitleImg,
+            option1: `${option1Img ? option1Img : option1}`,
+            option2,
+            option2Img,
+            option3,
+            option3Img,
+            option4,
+            option4Img,
+            option5,
+            option5Img,
+            mark,
+            answer,
+            question
+        };
         
-        const newQuestion = { email: user.email, questionTitle,questionTitleImg, option1,option1Img, option2,option2Img, option3,option3Img, option4,option4Img, option5,option5Img, mark, answer, question };
-        console.log('questionset', newQuestion);
-        axios.post('http://localhost:5000/addQuestions', newQuestion)
+        axios.post('http://localhost:5000/addQuestions', correctAnswer)
             .then(res => {
                 if (res.data.insertedId) {
                     toast.success('Your Question Successfully Added', {
@@ -60,6 +112,7 @@ const QuestionForm = () => {
             })
         e.preventDefault();
     }
+
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`)
             .then(res => res.json())
@@ -103,36 +156,36 @@ const QuestionForm = () => {
                 setExamTime={setExamTime}
             />
             {/* Form body */}
-            {questions.length >0 && <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mt-4">
-                <div className="flex justify-between items-center">
-                    <label htmlFor="startTime">Starting Time</label>
+            {questions.length > 0 && <>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-2/3 mt-4">
+                    <div className="flex justify-between items-center">
+                        <label htmlFor="startTime">Starting Time</label>
+                        <input
+                            type="time"
+                            id="startTime"
+                            className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                            onBlur={(e) => setStartingTime(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <label htmlFor="endTime">Ending Time</label>
+                        <input
+                            type="time"
+                            id="endTime"
+                            className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
+                            onBlur={(e) => setEndingTime(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="w-full md:w-2/3">
                     <input
-                        type="time"
-                        id="startTime"
+                        type="date"
+                        name=""
+                        id=""
                         className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
-                        onBlur={(e) => setStartingTime(e.target.value)}
+                        onChange={(e) => setDate(e.target.value)}
                     />
                 </div>
-                <div className="flex justify-between items-center">
-                    <label htmlFor="endTime">Ending Time</label>
-                    <input
-                        type="time"
-                        id="endTime"
-                        className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
-                        onBlur={(e) => setEndingTime(e.target.value)}
-                    />
-                </div>
-            </div>
-            <div className="w-full md:w-2/3">
-                <input
-                    type="date"
-                    name=""
-                    id=""
-                    className="text-base md:text-xl border rounded border-gray-200 focus:outline-none focus:border-gray-200"
-                    onChange={(e) => setDate(e.target.value)}
-                />
-            </div>
             </>
             }
             {questions.length > 0
@@ -166,6 +219,11 @@ const QuestionForm = () => {
                                     setQuestionTitleImg={setQuestionTitleImg}
                                     questionTitleImg={questionTitleImg}
                                     setOption1={setOption1}
+                                    setCorrectOption1={setCorrectOption1}
+                                    setCorrectOption2={setCorrectOption2}
+                                    setCorrectOption3={setCorrectOption3}
+                                    setCorrectOption4={setCorrectOption4}
+                                    setCorrectOption5={setCorrectOption5}
                                     setOption1Img={setOption1Img}
                                     option1Img={option1Img}
                                     setOption2={setOption2}
@@ -209,6 +267,11 @@ const QuestionForm = () => {
                                     setQuestionTitleImg={setQuestionTitleImg}
                                     questionTitleImg={questionTitleImg}
                                     setOption1={setOption1}
+                                    setCorrectOption1={setCorrectOption1}
+                                    setCorrectOption2={setCorrectOption2}
+                                    setCorrectOption3={setCorrectOption3}
+                                    setCorrectOption4={setCorrectOption4}
+                                    setCorrectOption5={setCorrectOption5}
                                     setOption1Img={setOption1Img}
                                     option1Img={option1Img}
                                     setOption2={setOption2}
@@ -284,8 +347,8 @@ const QuestionForm = () => {
                     </div>
                     :
                     ''
-                }
-                <Toaster />
+            }
+            <Toaster />
         </div >
     );
 };

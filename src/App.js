@@ -17,6 +17,8 @@ import Exam from './pages/Dashboard/ExamForm/Exam/Exam';
 import ExamForm from './pages/Dashboard/ExamForm/ExamForm/ExamForm';
 import Success from './pages/Dashboard/ExamForm/Success/Success';
 import QuestionForm from './pages/Dashboard/QuestionForm/QuestionForm/QuestionForm';
+import { Toaster } from 'react-hot-toast';
+import Responses from './pages/Dashboard/Responses/Responses';
 
 function App() {
   return (
@@ -51,6 +53,9 @@ function App() {
           <PrivateRoute path="/questionSet/:quesId">
             <FormTab />
           </PrivateRoute>
+          <PrivateRoute path="/result/:id">
+            <Responses />
+          </PrivateRoute>
           <PrivateRoute path="/form">
             <QuestionForm />
           </PrivateRoute>
@@ -68,6 +73,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      <Toaster />
     </AuthProvider>
   );
 }
