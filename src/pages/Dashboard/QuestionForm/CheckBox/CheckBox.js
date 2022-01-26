@@ -30,7 +30,7 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
     return (
         <div className="flex flex-col w-full">
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="text"
@@ -56,15 +56,18 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                     </div>
                 </div>
                 {/* image showing */}
-                <div className="w-1/6">
+                {
+                    questionTitleImg &&
+                    <div className="w-1/6">
                     <div>
                         <img className={questionTitleImg && "w-12 h-12 rounded-full mx-auto"} src={questionTitleImg} alt='' />
                     </div>
                 </div>
+                }
             </div>
 
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -94,16 +97,19 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                         </div>
                     </div>
                 </div>
-                <div className="w-1/6">
+                {
+                    option1Img &&
+                    <div className="w-1/6">
                     {/* image showing */}
                     <div>
                         <img className={option1Img && "w-12 h-12 rounded-full mx-auto"} src={option1Img} alt='' />
                         {/* <img src={option1Img} alt="" /> */}
                     </div>
                 </div>
+                }
             </div>
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -132,16 +138,19 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                         </div>
                     </div>
                 </div>
-                <div className="w-1/6">
+                {
+                    option2Img &&
+                    <div className="w-1/6">
                     {/* image showing */}
                     <div>
                         <img className={option2Img && "w-12 h-12 rounded-full mx-auto"} src={option2Img} alt='' />
                         {/* <img src={option1Img} alt="" /> */}
                     </div>
                 </div>
+                }
             </div>
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -170,16 +179,19 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                         </div>
                     </div>
                 </div>
-                <div className="w-1/6">
+                {
+                    option3Img &&
+                    <div className="w-1/6">
                     {/* image showing */}
                     <div>
                         <img className={option3Img && "w-12 h-12 rounded-full mx-auto"} src={option3Img} alt='' />
                         {/* <img src={option1Img} alt="" /> */}
                     </div>
                 </div>
+                }
             </div>
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -208,16 +220,19 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                         </div>
                     </div>
                 </div>
-                <div className="w-1/6">
+                {
+                    option4Img &&
+                    <div className="w-1/6">
                     {/* image showing */}
                     <div>
                         <img className={option4Img && "w-12 h-12 rounded-full mx-auto"} src={option4Img} alt='' />
                         {/* <img src={option1Img} alt="" /> */}
                     </div>
                 </div>
+                }
             </div>
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -246,13 +261,16 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                         </div>
                     </div>
                 </div>
-                <div className="w-1/6">
+                {
+                    option5Img &&
+                    <div className="w-1/6">
                     {/* image showing */}
                     <div>
                         <img className={option5Img && "w-12 h-12 rounded-full mx-auto"} src={option5Img} alt='' />
                         {/* <img src={option1Img} alt="" /> */}
                     </div>
                 </div>
+                }
             </div>
         </div>
     );

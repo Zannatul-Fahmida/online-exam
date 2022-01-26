@@ -11,7 +11,7 @@ const Paragraph = ({ setQuestionTitle, setQuestionTitleImg, questionTitleImg }) 
     return (
         <div className="flex flex-col w-full">
             <div className="flex">
-                <div className="w-5/6">
+                <div className="w-full">
                     <div className="flex items-center">
                         <input
                             type="text"
@@ -37,11 +37,14 @@ const Paragraph = ({ setQuestionTitle, setQuestionTitleImg, questionTitleImg }) 
                     </div>
                 </div>
                 {/* image showing */}
-                <div className="w-1/6">
+                {
+                    questionTitleImg &&
+                    <div className="w-1/6">
                     <div>
                         <img className={questionTitleImg && "w-12 h-12 rounded-full mx-auto"} src={questionTitleImg} alt='' />
                     </div>
                 </div>
+                }
             </div>
         </div>
     );
