@@ -49,9 +49,10 @@ const QuestionForm = () => {
         
         const newQuestion = { email: user.email, questionTitle, questionTitleImg, option1, option1Img, option2,option2Img, option3, option3Img, option4, option4Img, option5, option5Img, mark, answer, question };
         console.log('questionset', newQuestion);
-        axios.post('http://localhost:5000/addQuestions', newQuestion)
+        axios.post('https://agile-retreat-39153.herokuapp.com/addQuestions', newQuestion)
             .then(res => {
-                if (res.data.insertedId) {
+                if (res.data.insertedId) {                   
+                    window.location.reload();
                     toast.success('Your Question Successfully Added', {
                         id: loading,
                     });
