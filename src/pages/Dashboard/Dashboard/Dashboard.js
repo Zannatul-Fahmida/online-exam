@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import img1 from '../../../images/pexels-photo-356079.jpeg';
 import img2 from '../../../images/exam.jpg';
+import img3 from '../../../images/Review-submission.jpg';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import { ImCross } from 'react-icons/im';
@@ -37,6 +38,10 @@ const Dashboard = () => {
                 <Link to="/exam" className="border border-transparent hover:border-purple-500 cursor-pointer">
                     <img src={img2} alt="" className="" />
                     <p className="font-bold">Give A Exam</p>
+                </Link>
+                <Link to="/review" className="border border-transparent hover:border-purple-500 cursor-pointer">
+                    <img src={img3} alt="" className="" />
+                    <p className="font-bold">Write A Review</p>
                 </Link>
                 {
                     questionSet.map(ques => <div key={ques._id} className="border border-transparent hover:border-purple-500">

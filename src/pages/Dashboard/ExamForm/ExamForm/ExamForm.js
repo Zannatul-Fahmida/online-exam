@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
+import QuestionSet from '../../QuestionForm/QuestionSet/QuestionSet';
+import AlertTimer from '../AlertTimer/AlertTimer';
 import Calculator from '../Calculator/Calculator';
 
 const ExamForm = () => {
@@ -47,9 +49,22 @@ const ExamForm = () => {
             })
         e.preventDefault();
     }
+
+    const googleTranslateElementInit = () => {
+        new window.google.translate.TranslateElement({ pageLanguage: 'en', layout: window.google.translate.TranslateElement.FloatPosition.TOP_LEFT }, 'google_translate_element')
+    }
+    useEffect(() => {
+        var addScript = document.createElement('script');
+        addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+        document.body.appendChild(addScript);
+        window.googleTranslateElementInit = googleTranslateElementInit;
+    }, [])
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
+            <div>
+                <AlertTimer startingTime={questionSet.startingTime} endingTime={questionSet.endingTime} />
+            </div>
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
                     <p className="text-3xl">{questionSet?.instituteName}</p>
                     <p className="text-lg">{questionSet?.examTitle}</p>
@@ -58,6 +73,7 @@ const ExamForm = () => {
                         <p>Marks: {questionSet?.examMarks}</p>
                         <p>Time: {questionSet?.examTime}</p>
                     </div>
+                    <div id="google_translate_element"></div>
                 </div>
             </div>
             {
@@ -67,7 +83,12 @@ const ExamForm = () => {
                             {
                                 questionSet?.questions?.map(ques => <div key={ques._id} className="w-full">
                                     <div className="flex justify-between">
-                                        <p>{ques.questionTitle}</p>
+                                        <p
+                                            onCopy={(e) => {
+                                                e.preventDefault()
+                                                return false;
+                                            }}
+                                        >{ques.questionTitle}</p>
                                         <p>{ques.mark}</p>
                                     </div>
                                     <form>
@@ -149,6 +170,14 @@ const ExamForm = () => {
                                                 className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2 pl-2"
                                                 placeholder="Answer"
                                                 onBlur={(e) => setParagraphAnswer(e.target.value)}
+                                                onPaste={(e) => {
+                                                    e.preventDefault()
+                                                    return false;
+                                                }}
+                                                onCopy={(e) => {
+                                                    e.preventDefault()
+                                                    return false;
+                                                }}
                                             ></textarea>
                                         </>
                                     }
@@ -201,7 +230,7 @@ const ExamForm = () => {
                 </>
             }
             {
-                questionSet?.date > today || questionSet?.date === today && currentTime >= questionSet.endingTime ?
+                !showCalculator && questionSet?.date > today || questionSet?.date === today && currentTime >= questionSet.endingTime ?
                     <div>
                         <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
                     </div>
@@ -209,7 +238,7 @@ const ExamForm = () => {
                     ''
             }
             {
-                questionSet?.date < today || questionSet?.date === today && currentTime <= questionSet.startingTime ?
+                !showCalculator && questionSet?.date < today || questionSet?.date === today && currentTime <= questionSet.startingTime ?
                     <div>
                         <p className="text-4xl mt-6">The exam was held {questionSet.date} at {questionSet.startingTime}</p>
                     </div>

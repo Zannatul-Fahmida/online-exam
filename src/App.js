@@ -17,6 +17,7 @@ import ExamForm from './pages/Dashboard/ExamForm/ExamForm/ExamForm';
 import Success from './pages/Dashboard/ExamForm/Success/Success';
 import QuestionForm from './pages/Dashboard/QuestionForm/QuestionForm/QuestionForm';
 import ReuseQuestion from './pages/Dashboard/QuestionForm/ReuseQuestion/ReuseQuestion';
+import Review from './pages/Dashboard/Review/Review';
 
 function App() {
   return (
@@ -62,6 +63,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/reuseQuestion/:questionId">
             <ReuseQuestion />
+          </PrivateRoute>
+          <PrivateRoute path="/review">
+            <Review />
           </PrivateRoute>
           <PrivateRoute path="/success">
             <Success></Success>
