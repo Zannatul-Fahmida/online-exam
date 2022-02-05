@@ -3,7 +3,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { FaQuoteRight } from 'react-icons/fa';
 
 const TestimonialCard = (props) => {
-    const {review, name, role} = props.review;
+    const { review, name, role, img } = props.review;
     return (
         <div class="w-full">
             <div className="p-4 md:w-1/2 w-full mx-auto">
@@ -14,7 +14,7 @@ const TestimonialCard = (props) => {
                     <p className="leading-relaxed mb-6">{review}</p>
                     <div className="inline-flex items-center">
                         <div className="w-14 h-14 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 text-4xl">
-                            {<AiOutlineUser />}
+                            {img ? <img className="rounded-full" src={img} alt="" /> : <AiOutlineUser />}
                         </div>
                         <span className="flex-grow flex flex-col pl-4">
                             <span className="title-font font-medium text-gray-900">{name}</span>

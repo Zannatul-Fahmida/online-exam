@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
-import QuestionSet from '../../QuestionForm/QuestionSet/QuestionSet';
 import AlertTimer from '../AlertTimer/AlertTimer';
 import Calculator from '../Calculator/Calculator';
 
@@ -18,7 +17,7 @@ const ExamForm = () => {
     const [paragraphAnswer, setParagraphAnswer] = useState('');
     const [showCalculator, setShowCalculator] = useState(false);
     const today = moment().format('YYYY-MM-DD');
-    const currentTime = moment().format('HH:mm');
+    const currentTime = moment().format('HH:mm:ss');
 
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
