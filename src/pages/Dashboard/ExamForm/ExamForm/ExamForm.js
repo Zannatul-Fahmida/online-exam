@@ -61,9 +61,12 @@ const ExamForm = () => {
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
-            <div>
-                <AlertTimer startingTime={questionSet.startingTime} endingTime={questionSet.endingTime} />
-            </div>
+                {
+                    questionSet.startingTime <= currentTime && questionSet.endingTime >= currentTime &&
+                    <div>
+                        <AlertTimer endingTime={questionSet.endingTime} />
+                    </div>
+                }
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
                     <p className="text-3xl">{questionSet?.instituteName}</p>
                     <p className="text-lg">{questionSet?.examTitle}</p>
@@ -224,22 +227,15 @@ const ExamForm = () => {
                     </div>
                     <div className="flex my-4">
                         <button onClick={() => setShowCalculator(true)} className={showCalculator ? "text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 mr-2 hidden" : "text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 mr-2 block"}>Calculator</button>
-                        <button onClick={(e) => handleSubmit(e)} className="text-xl text-white bg-purple-900 rounded-md px-5 py-2"><Link to="/success" >Submit</Link></button>
+                        <button onClick={(e) => handleSubmit(e)} className="text-xl text-white bg-purple-900 rounded-md px-5 py-2" disabled={currentTime > questionSet.endingTime && 'disable'}><Link to="/success" >Submit</Link></button>
                     </div>
                 </>
             }
             {
-                !showCalculator && questionSet?.date > today || questionSet?.date === today && currentTime >= questionSet.endingTime ?
+                questionSet?.date < today || questionSet?.date > today || questionSet?.date === today && currentTime < questionSet.startingTime || currentTime > questionSet.endingTime ?
                     <div>
-                        <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
-                    </div>
-                    :
-                    ''
-            }
-            {
-                !showCalculator && questionSet?.date < today || questionSet?.date === today && currentTime <= questionSet.startingTime ?
-                    <div>
-                        <p className="text-4xl mt-6">The exam was held {questionSet.date} at {questionSet.startingTime}</p>
+                        <p className="text-4xl mt-6">Exam Date: {questionSet.date}</p>
+                        <p className="text-4xl mt-6">Exam Time: {questionSet.startingTime}</p>
                     </div>
                     :
                     ''

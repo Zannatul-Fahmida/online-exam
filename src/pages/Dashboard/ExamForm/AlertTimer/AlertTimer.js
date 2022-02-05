@@ -1,9 +1,9 @@
-import moment, { now } from 'moment';
+import moment from 'moment';
 import React from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 const AlertTimer = (props) => {
-    const { startingTime, endingTime } = props;
+    const { endingTime } = props;
     const currentTime = moment().format('HH:mm:ss');
     var ms = moment(endingTime, "HH:mm:ss").diff(moment(currentTime, "HH:mm:ss"));
     var d = moment.duration(ms);
