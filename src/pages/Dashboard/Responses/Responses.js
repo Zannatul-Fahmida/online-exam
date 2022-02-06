@@ -11,7 +11,7 @@ const Responses = () => {
     const [questionSet, setQuestionSet] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [userQnaSet, setUserQnaSet] = useState([]);
-    // const [qna, setUserqna] = useState([]); // user Answer data from database 
+    // const [qna, setUserqna] = useState([]); // user Answer data from databas
     const { location } = useHistory();
     const { state } = location;
     const { qna } = state; // user answer data from direct state
