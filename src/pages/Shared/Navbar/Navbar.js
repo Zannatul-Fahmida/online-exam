@@ -19,7 +19,9 @@ const Navbar = () => {
 				<CgMenuGridR />
 				</div>
 				<div className="lg:block hidden">
+					<div className="flex items-center">
 					<NavItems />
+					</div>
 				</div>
 			</nav>
 			<div
