@@ -1,23 +1,63 @@
 import React, { useState } from 'react';
 import QuestionSet from '../QuestionForm/QuestionSet/QuestionSet';
 import Responses from '../Responses/Responses';
+import { Tab } from '@headlessui/react';
 
 const FormTab = () => {
-    const [active, setActive] = useState("questions");
+    function classNames(...classes) {
+        return classes.filter(Boolean).join(' ')
+    }
     return (
         <div>
-            <div className="flex justify-center my-3">
-                <button onClick={() => setActive("questions")}><span className={active === "questions" ? "mr-3 font-bold text-lg text-purple-900" : "mr-3 font-bold  text-black text-lg"}>Questions</span></button>
-                <button onClick={() => setActive("responses")}><span className={active === "responses" ? "font-bold text-lg text-purple-900" : "font-bold  text-black text-lg"}>Responses</span></button>
-            </div>
-            {
-                active === "questions"?
-                <QuestionSet />
-                :
-                <Responses />
-            }
+            <Tab.Group>
+                <Tab.List className="w-full flex justify-center p-1 space-x-1 my-2">
+                    <Tab
+                        className={({ selected }) =>
+                            classNames(
+                                'w-1/3 py-2.5 text-sm leading-5 font-medium text-white rounded-lg',
+                                'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60',
+                                selected
+                                    ? 'bg-purple-900 text-white shadow'
+                                    : 'text-purple-900 shadow-md hover:shadow-lg hover:bg-white hover:text-purple-900'
+                            )
+                        }
+                    >
+                        questions
+                    </Tab>
+                    <Tab
+                        className={({ selected }) =>
+                            classNames(
+                                'w-1/3 py-2.5 text-sm leading-5 font-medium text-white rounded-lg',
+                                'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60',
+                                selected
+                                    ? 'bg-purple-900 text-white shadow'
+                                    : 'text-purple-900 shadow-md hover:shadow-lg hover:bg-white hover:text-purple-900'
+                            )
+                        }
+                    >
+                        responses
+                    </Tab>
+                </Tab.List>
+                <Tab.Panels>
+                    <Tab.Panel
+                        className={classNames(
+                            'bg-white',
+                            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+                        )}
+                    >
+                        <QuestionSet />
+                    </Tab.Panel>
+                    <Tab.Panel
+                        className={classNames(
+                            'bg-white rounded-xl p-3',
+                            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
+                        )}
+                    >
+                        <Responses />
+                    </Tab.Panel>
+                </Tab.Panels>
+            </Tab.Group>
         </div>
-
     );
 };
 

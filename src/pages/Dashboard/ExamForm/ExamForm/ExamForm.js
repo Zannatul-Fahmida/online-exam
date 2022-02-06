@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
+import AlertTimer from '../AlertTimer/AlertTimer';
 import Calculator from '../Calculator/Calculator';
 import QuestionSection from '../QuestionSection/QuestionSection';
 
@@ -56,9 +57,25 @@ const ExamForm = () => {
             })
         e.preventDefault();
     }
+
+    const googleTranslateElementInit = () => {
+        new window.google.translate.TranslateElement({ pageLanguage: 'en', layout: window.google.translate.TranslateElement.FloatPosition.TOP_LEFT }, 'google_translate_element')
+    }
+    useEffect(() => {
+        var addScript = document.createElement('script');
+        addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+        document.body.appendChild(addScript);
+        window.googleTranslateElementInit = googleTranslateElementInit;
+    }, [])
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
+                {
+                    questionSet.startingTime <= currentTime && questionSet.endingTime >= currentTime &&
+                    <div>
+                        <AlertTimer endingTime={questionSet.endingTime} />
+                    </div>
+                }
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
                     <p className="text-3xl">{questionSet?.instituteName}</p>
                     <p className="text-lg">{questionSet?.examTitle}</p>
@@ -67,6 +84,7 @@ const ExamForm = () => {
                         <p>Marks: {questionSet?.examMarks}</p>
                         <p>Time: {questionSet?.examTime}</p>
                     </div>
+                    <div id="google_translate_element"></div>
                 </div>
             </div>
             <div className="mt-5 w-full md:w-2/3">
@@ -83,17 +101,10 @@ const ExamForm = () => {
             </div>
             
             {
-                questionSet?.date > today || questionSet?.date === today && currentTime >= questionSet.endingTime ?
+                questionSet?.date < today || questionSet?.date > today || questionSet?.date === today && currentTime < questionSet.startingTime || currentTime > questionSet.endingTime ?
                     <div>
-                        <p className="text-4xl mt-6">The exam will held {questionSet.date} at {questionSet.startingTime}</p>
-                    </div>
-                    :
-                    ''
-            }
-            {
-                questionSet?.date < today || questionSet?.date === today && currentTime <= questionSet.startingTime ?
-                    <div>
-                        <p className="text-4xl mt-6">The exam was held {questionSet.date} at {questionSet.startingTime}</p>
+                        <p className="text-4xl mt-6">Exam Date: {questionSet.date}</p>
+                        <p className="text-4xl mt-6">Exam Time: {questionSet.startingTime}</p>
                     </div>
                     :
                     ''

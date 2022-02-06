@@ -18,6 +18,8 @@ import Success from './pages/Dashboard/ExamForm/Success/Success';
 import QuestionForm from './pages/Dashboard/QuestionForm/QuestionForm/QuestionForm';
 import ReuseQuestion from './pages/Dashboard/QuestionForm/ReuseQuestion/ReuseQuestion';
 import Responses from './pages/Dashboard/Responses/Responses';
+import Review from './pages/Dashboard/Review/Review';
+import ViewProfile from './pages/ViewProfile/ViewProfile';
 
 function App() {
   return (
@@ -46,6 +48,9 @@ function App() {
           <Route path="/signup">
             <SignUp></SignUp>
           </Route>
+          <PrivateRoute path="/profile">
+            <ViewProfile />
+          </PrivateRoute>
           <PrivateRoute path="/dashboard">
             <Dashboard></Dashboard>
           </PrivateRoute>
@@ -63,6 +68,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/reuseQuestion/:questionId">
             <ReuseQuestion />
+          </PrivateRoute>
+          <PrivateRoute path="/review">
+            <Review />
           </PrivateRoute>
           <PrivateRoute path="/success">
             <Success></Success>
