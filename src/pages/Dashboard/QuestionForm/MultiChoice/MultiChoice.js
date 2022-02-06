@@ -3,7 +3,12 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { BiImageAdd } from 'react-icons/bi';
 
-const MultiChoice = ({ setOption1, setOption1Img, option1Img, setOption2, setOption2Img, option2Img, setOption3, setOption3Img, option3Img, setOption4, setOption4Img, option4Img, setOption5, setOption5Img, option5Img, setQuestionTitle, setQuestionTitleImg, questionTitleImg }) => {
+const MultiChoice = ({ setOption1,
+    setCorrectOption1,
+    setCorrectOption2,
+    setCorrectOption3,
+    setCorrectOption4,
+    setCorrectOption5, setOption1Img, option1Img, setOption2, setOption2Img, option2Img, setOption3, setOption3Img, option3Img, setOption4, setOption4Img, option4Img, setOption5, setOption5Img, option5Img, setQuestionTitle, setQuestionTitleImg, questionTitleImg }) => {
     const QuestionTitleImgUpload = (e) => {
         singleImageUpload(e.target.files[0])
             .then(res => setQuestionTitleImg(res))
@@ -93,8 +98,9 @@ const MultiChoice = ({ setOption1, setOption1Img, option1Img, setOption2, setOpt
                     <div className="flex items-center">
                         <input
                             type="radio"
-                            name=""
+                            name="ansRadios"
                             id="option1"
+                            onChange={(e) => setCorrectOption1(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -135,8 +141,9 @@ const MultiChoice = ({ setOption1, setOption1Img, option1Img, setOption2, setOpt
                     <div className="flex items-center">
                         <input
                             type="radio"
-                            name=""
+                            name="ansRadios"
                             id="option2"
+                            onChange={(e) => setCorrectOption2(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -176,8 +183,9 @@ const MultiChoice = ({ setOption1, setOption1Img, option1Img, setOption2, setOpt
                     <div className="flex items-center">
                         <input
                             type="radio"
-                            name=""
+                            name="ansRadios"
                             id="option3"
+                            onChange={(e) => setCorrectOption3(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -217,8 +225,9 @@ const MultiChoice = ({ setOption1, setOption1Img, option1Img, setOption2, setOpt
                     <div className="flex items-center">
                         <input
                             type="radio"
-                            name=""
+                            name="ansRadios"
                             id="option4"
+                            onChange={(e) => setCorrectOption4(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -258,8 +267,9 @@ const MultiChoice = ({ setOption1, setOption1Img, option1Img, setOption2, setOpt
                     <div className="flex items-center">
                         <input
                             type="radio"
-                            name=""
+                            name="ansRadios"
                             id="option5"
+                            onChange={(e) => setCorrectOption5(e.target.checked)}
                         />
                         <input
                             type="text"

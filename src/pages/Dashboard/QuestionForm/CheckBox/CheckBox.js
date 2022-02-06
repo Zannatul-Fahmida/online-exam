@@ -2,7 +2,12 @@ import React from 'react';
 import { BiImageAdd } from 'react-icons/bi';
 import useSingleImageUpload from '../../../../hooks/useSingleImageUpload';
 
-const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption2Img, option2Img, setOption3, setOption3Img, option3Img, setOption4, setOption4Img, option4Img, setOption5, setOption5Img, option5Img, setQuestionTitle, setQuestionTitleImg, questionTitleImg }) => {
+const CheckBox = ({ setOption1,
+    setCorrectOption1,
+    setCorrectOption2,
+    setCorrectOption3,
+    setCorrectOption4,
+    setCorrectOption5, setOption1Img, option1Img, setOption2, setOption2Img, option2Img, setOption3, setOption3Img, option3Img, setOption4, setOption4Img, option4Img, setOption5, setOption5Img, option5Img, setQuestionTitle, setQuestionTitleImg, questionTitleImg }) => {
     const QuestionTitleImgUpload = (e) => {
         useSingleImageUpload(e.target.files[0])
             .then(res => setQuestionTitleImg(res))
@@ -73,6 +78,7 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                             type="checkbox"
                             name=""
                             id="option1"
+                            onChange={(e) => setCorrectOption1(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -115,6 +121,7 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                             type="checkbox"
                             name=""
                             id="option2"
+                            onChange={(e) => setCorrectOption2(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -156,6 +163,7 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                             type="checkbox"
                             name=""
                             id="option3"
+                            onChange={(e) => setCorrectOption3(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -197,6 +205,7 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                             type="checkbox"
                             name=""
                             id="option4"
+                            onChange={(e) => setCorrectOption4(e.target.checked)}
                         />
                         <input
                             type="text"
@@ -238,6 +247,7 @@ const CheckBox = ({ setOption1, setOption1Img, option1Img, setOption2, setOption
                             type="checkbox"
                             name=""
                             id="option5"
+                            onChange={(e) => setCorrectOption5(e.target.checked)}
                         />
                         <input
                             type="text"
