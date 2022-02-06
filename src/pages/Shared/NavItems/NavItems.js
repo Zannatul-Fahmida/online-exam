@@ -9,22 +9,22 @@ const NavItems = () => {
     const [active, setActive] = useState("home");
     return (
         <>
-            <Link onClick={() => setActive("home")} className={active === "home" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"} to="/">
+            <Link onClick={() => setActive("home")} className={active === "home" ? "text-lg hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-lg hover:text-purple-800 my-2 mx-4"} to="/">
                 Home
             </Link>
-            <Link onClick={() => setActive("about")} className={active === "about" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"} to="/about">
+            <Link onClick={() => setActive("about")} className={active === "about" ? "text-lg hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-lg hover:text-purple-800 my-2 mx-4"} to="/about">
                 About
             </Link>
             <Link
                 onClick={() => setActive("features")}
-                className={active === "features" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"}
+                className={active === "features" ? "text-lg hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-lg hover:text-purple-800 my-2 mx-4"}
                 to="/features"
             >
                 Features
             </Link>
             <Link
                 onClick={() => setActive("contact")}
-                className={active === "contact" ? "text-xl hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-xl hover:text-purple-800 my-2 mx-4"}
+                className={active === "contact" ? "text-lg hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-lg hover:text-purple-800 my-2 mx-4"}
                 to="/contact"
             >
                 Contact
@@ -52,28 +52,30 @@ const NavItems = () => {
                       >
                         <Menu.Items className="origin-top-right absolute right-10 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none flex flex-col justify-center">
                           <Menu.Item>
-                            {({ active }) => (
                               <p
                                 className='block px-4 py-2 text-sm text-purple-900'
                               >
                                 {user.displayName}
                               </p>
-                            )}
                           </Menu.Item>
                           <Menu.Item>
-                            {({ active }) => (
+                              <Link
+                                to="/profile"
+                                className='block px-4 py-2 text-sm text-gray-700'
+                              >
+                                View Profile
+                              </Link>
+                          </Menu.Item>
+                          <Menu.Item>
                               <Link
                                 to="/dashboard"
                                 className='block px-4 py-2 text-sm text-gray-700'
                               >
                                 Dashboard
                               </Link>
-                            )}
                           </Menu.Item>
                           <Menu.Item>
-                            {({ active }) => (
                               <button className="justify-self-center items-center py-1.5 px-7 border-2 border-purple-700 rounded-md text-xl font-bold text-purple-900 bg-pink-200 hover:bg-purple-700 hover:text-white" onClick={logOut}>Log out</button>
-                            )}
                           </Menu.Item>
                         </Menu.Items>
                       </Transition>
