@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ImCross } from 'react-icons/im';
 
 const QuestionShow = (props) => {
-    const {questionTitle, mark, option1, option2, option3, option4, option5, _id, answer, question} = props.ques;
+    const { title, mark, options, _id, answer, question } = props.ques;
     const [questions, setQuestions] = useState([]);
 
     const handleDelete = id => {
@@ -23,72 +23,24 @@ const QuestionShow = (props) => {
             <div className="mx-4 md:mx-0 flex items-center justify-between">
                 <div className="w-full">
                     <div className="flex justify-between">
-                        <p>{questionTitle}</p>
+                        <p>{title}</p>
                         <p>{mark}</p>
                     </div>
                     <form>
                         {
-                            option1 && <>
-                                <input
-                                    type={question === "check-box" ? "checkbox" : "radio"}
-                                    name=""
-                                    id="option1"
-                                    className="mr-2"
-                                    value={option1}
-                                />
-                                <label htmlFor="option1">{option1}</label><br />
-                            </>
-                        }
-                        {
-                            option2 && <>
-                                <input
-                                    type={question === "check-box" ? "checkbox" : "radio"}
-                                    name=""
-                                    id="option2"
-                                    className="mr-2"
-                                    value={option2}
-                                />
-                                <label htmlFor="option2">{option2}</label><br />
-                            </>
-                        }
-                        {
-                            option3 &&
-                            <>
-                                <input
-                                    type={question === "check-box" ? "checkbox" : "radio"}
-                                    name=""
-                                    id="option3"
-                                    className="mr-2"
-                                    value={option3}
-                                />
-                                <label htmlFor="option3">{option3}</label><br />
-                            </>
-                        }
-                        {
-                            option4 &&
-                            <>
-                                <input
-                                    type={question === "check-box" ? "checkbox" : "radio"}
-                                    name=""
-                                    id="option4"
-                                    className="mr-2"
-                                    value={option4}
-                                />
-                                <label htmlFor="option4">{option4}</label><br />
-                            </>
-                        }
-                        {
-                            option5 &&
-                            <>
-                                <input
-                                    type={question === "check-box" ? "checkbox" : "radio"}
-                                    name=""
-                                    id="option5"
-                                    className="mr-2"
-                                    value={option5}
-                                />
-                                <label htmlFor="option5">{option5}</label><br />
-                            </>
+                            options.map(quest => <>{
+                                quest.title && <>
+                                    <input
+                                        type={question === "check-box" ? "checkbox" : "radio"}
+                                        name=""
+                                        className="mr-2"
+                                        id="option1"
+                                        value={quest.title}
+                                    />
+                                    <label htmlFor="option1">{quest.title}</label><br />
+                                </>
+                            }
+                            </>)
                         }
                     </form>
                     {

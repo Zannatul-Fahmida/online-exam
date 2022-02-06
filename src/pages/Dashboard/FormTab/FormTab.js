@@ -22,7 +22,7 @@ const FormTab = () => {
                             )
                         }
                     >
-                        questions
+                        Questions
                     </Tab>
                     <Tab
                         className={({ selected }) =>
@@ -35,24 +35,14 @@ const FormTab = () => {
                             )
                         }
                     >
-                        responses
+                        Responses
                     </Tab>
                 </Tab.List>
                 <Tab.Panels>
-                    <Tab.Panel
-                        className={classNames(
-                            'bg-white',
-                            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-                        )}
-                    >
+                    <Tab.Panel>
                         <QuestionSet />
                     </Tab.Panel>
-                    <Tab.Panel
-                        className={classNames(
-                            'bg-white rounded-xl p-3',
-                            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-                        )}
-                    >
+                    <Tab.Panel>
                         <Responses />
                     </Tab.Panel>
                 </Tab.Panels>

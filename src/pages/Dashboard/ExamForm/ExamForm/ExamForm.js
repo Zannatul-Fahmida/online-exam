@@ -23,15 +23,15 @@ const ExamForm = () => {
     const currentTime = moment().format('HH:mm');
     const [loading, setLoading] = useState(true)
     const [questions, setQuestions] = useState([]);
-    
+
     useEffect(() => {
         axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
-        .then(res => {
-            setQuestionSet(res.data);
-            setQuestions(res.data.questions)
-          setLoading(false);
-        })
-        .catch(error => toast.error(error.message))
+            .then(res => {
+                setQuestionSet(res.data);
+                setQuestions(res.data.questions)
+                setLoading(false);
+            })
+            .catch(error => toast.error(error.message))
     }, [quesCode]);
     console.log("ques", questions);
     const handleCheckbox = (e) => {
@@ -87,19 +87,25 @@ const ExamForm = () => {
                     <div id="google_translate_element"></div>
                 </div>
             </div>
-            <div className="mt-5 w-full md:w-2/3">
-                {
-                    loading ?
-                        <div>Loading.............</div>
-                        :
-                        <QuestionSection
-                            loading={loading}
-                            quesId={quesCode}
-                            questions={questions}
-                            questionSet={questionSet} />
-                }
-            </div>
-            
+
+            {
+                questionSet?.date === today && currentTime > questionSet.startingTime || currentTime < questionSet.endingTime &&
+                <div className="mt-5 w-full md:w-2/3">
+                    {
+                        loading ?
+                            <div className="text-center my-5">
+                                <h2 className="text-purple-900 font-bold">Loading...</h2>
+                            </div>
+                            :
+                            <QuestionSection
+                                loading={loading}
+                                quesId={quesCode}
+                                questions={questions}
+                                questionSet={questionSet} />
+                    }
+                </div>
+            }
+
             {
                 questionSet?.date < today || questionSet?.date > today || questionSet?.date === today && currentTime < questionSet.startingTime || currentTime > questionSet.endingTime ?
                     <div>
