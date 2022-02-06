@@ -79,10 +79,10 @@ const QuestionForm = () => {
         question
     }
     console.log('correctans', correctAnswer);
-    
+
     const handleAddQuestion = async e => {
         const loading = toast.loading('Uploading...Please wait!')
-
+        // ei newquestion ta bad 
         const newQuestion = {
             email: user.email,
             questionTitle,
@@ -100,7 +100,7 @@ const QuestionForm = () => {
             answer,
             question
         };
-        
+
         axios.post('http://localhost:5000/addQuestions', correctAnswer)
             .then(res => {
                 if (res.data.insertedId) {
