@@ -99,9 +99,11 @@ const MultiChoice = ({ setOption1,
                         <div onClick={SpeechRecognition.stopListening} className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-2 cursor-pointer">
                             {<BiMicrophoneOff className="text-2xl" />}
                         </div>
-                        <div onClick={resetTranscript} className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-2 cursor-pointer">
+                        {
+                            transcript && <div onClick={resetTranscript} className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-2 cursor-pointer">
                             {<GrPowerReset className="text-2xl" />}
                         </div>
+                        }
                     </div>
                 </div>
                 {/* image showing */}
