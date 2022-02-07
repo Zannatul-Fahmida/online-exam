@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import _ from "lodash";
-import { AiOutlineUser } from 'react-icons/ai';
+import useAuth from '../../../hooks/useAuth';
+import CommonBtn from '../../Shared/CommonBtn/CommonBtn';
 
 const Responses = () => {
     const { id } = useParams();
+    const {user} = useAuth();
     const [loading, setLoading] = useState(true)
     const [questionSet, setQuestionSet] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -49,26 +51,31 @@ const Responses = () => {
                 }
             });
             if (_.isEqual(correctIndexes, checkedIndexes)) {
-                score = score + 5;
+                score = score + parseFloat(question.mark);
             }
         })
         return score
     }
     const userScore = calculate();
     return (
-        <div className="container px-5 py-8 mx-auto">
-            {loading && <div>Loading.....</div>}
+        <div className="px-5 py-8">
+            {loading && <div className="text-purple-900 font-bold">Loading.....</div>}
             {questions && questions.length && (
-                <div className="flex flex-wrap m-4">
-                    <div className="p-4 lg:w-1/2 md:w-full">
-                        <div className="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col bg-gradient-to-t from-blue-50 via-blue-300 to-blue-500">
-                            <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 text-4xl">
-                                {<AiOutlineUser />}
+                <div className="flex flex-wrap justify-center m-4">
+                    <div className="p-4 lg:w-1/2 w-full">
+                        <div className="flex flex-col border-2 items-center justify-center rounded-lg border-gray-200 border-opacity-50 p-8 bg-gradient-to-t from-purple-700 via-purple-600 to-purple-700">
+                            <div>
+                                <img
+                                    className="h-16 w-16 rounded-full"
+                                    src={user.photoURL || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'}
+                                    alt=""
+                                />
                             </div>
-                            <div className="flex-grow">
-                                <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Examination Result</h2>
-                                <p className="leading-relaxed text-base mb-4">Your score {userScore} out of {questions.length * 5}</p>
-                                {/* <CommonBtn destination="/signup" title="Sign up" /> */}
+                            <div className="text-center text-white font-medium">
+                                <p className="mt-2 text-xl">{user.displayName}</p>
+                                <h2 className="leading-relaxed my-2">Examination Result</h2>
+                                <h2 className="title-font text-2xl mb-5">Your score {userScore} out of {questionSet.examMarks}</h2>
+                                <Link to="/dashboard" className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none">Back to Dashboard</Link>
                             </div>
                         </div>
                     </div>

@@ -93,7 +93,8 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
             studentAns: qna,
             examTitle: questionSet.examTitle,
             examDescription: questionSet.examDescription,
-            quesId: quesId
+            quesId: quesId, 
+            examMarks: questionSet.examMarks
         }
 
         await axios.post('http://localhost:5000/responses', answerInfo)
