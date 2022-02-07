@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import QuestionSet from '../QuestionForm/QuestionSet/QuestionSet';
-import Responses from '../Responses/Responses';
 import { Tab } from '@headlessui/react';
+import AllResponses from '../AllResponses/AllResponses';
 
 const FormTab = () => {
     function classNames(...classes) {
@@ -43,7 +43,7 @@ const FormTab = () => {
                         <QuestionSet />
                     </Tab.Panel>
                     <Tab.Panel>
-                        <Responses />
+                        <AllResponses />
                     </Tab.Panel>
                 </Tab.Panels>
             </Tab.Group>

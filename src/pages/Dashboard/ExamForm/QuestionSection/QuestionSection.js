@@ -122,7 +122,12 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
             {!loading && qna && qna.length > 0 && (
                 <>
                     <div className="question-title">
-                        <h1>Question Title : {qna[currentQuestion].title}</h1>
+                        <h1
+                            onCopy={(e) => {
+                                e.preventDefault()
+                                return false;
+                            }}
+                        >Question Title : {qna[currentQuestion].title}</h1>
                         <h4>Question can have multiple answers</h4>
                     </div>
                     {
