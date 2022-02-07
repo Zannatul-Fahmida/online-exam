@@ -12,13 +12,13 @@ const ProgressBar = ({ next, prev,submit, submitQuiz }) => {
             <Calculator />
             </div>
         }
-        <div class="flex justify-between pt-8 pb-8">
+        <div class="flex items-center justify-between py-8">
             <button
                 onClick={prev}
                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
                 <span>Prev Question</span>
             </button>
-            <button onClick={e => setShowCalculator(true)} className={!showCalculator ? "text-xl bg-purple-700 text-white rounded-md px-5 py-2 block" : "text-xl bg-purple-700 text-white rounded-md px-5 py-3 hidden"}>
+            <button onClick={e => setShowCalculator(true)} className={!showCalculator ? "text-xl bg-purple-700 text-white rounded-md px-5 py-2 block" : "text-xl bg-purple-700 text-white rounded-md px-5 py-2 hidden"}>
                 Calculator
             </button>
             <button

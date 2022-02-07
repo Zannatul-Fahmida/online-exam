@@ -3,10 +3,8 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
 import AlertTimer from '../AlertTimer/AlertTimer';
-import Calculator from '../Calculator/Calculator';
 import QuestionSection from '../QuestionSection/QuestionSection';
 
 const ExamForm = () => {
@@ -18,7 +16,6 @@ const ExamForm = () => {
     const [multipleAnswer, setMultipleAnswer] = useState('');
     const [checkboxAnswer, setCheckboxAnswer] = useState([]);
     const [paragraphAnswer, setParagraphAnswer] = useState('');
-    const [showCalculator, setShowCalculator] = useState(false);
     const today = moment().format('YYYY-MM-DD');
     const currentTime = moment().format('HH:mm');
     const [loading, setLoading] = useState(true)
@@ -89,7 +86,7 @@ const ExamForm = () => {
             </div>
 
             {
-                questionSet?.date === today && currentTime > questionSet.startingTime || currentTime < questionSet.endingTime &&
+                questionSet?.date === today && currentTime >= questionSet.startingTime && currentTime <= questionSet.endingTime &&
                 <div className="mt-5 w-full md:w-2/3">
                     {
                         loading ?

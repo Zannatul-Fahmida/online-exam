@@ -8,7 +8,6 @@ import useAuth from '../../../../hooks/useAuth';
 import axios from 'axios';
 import swal from 'sweetalert';
 import "./Answer.css";
-import MultiChoice from '../../QuestionForm/MultiChoice/MultiChoice';
 import MultipleChoiceAnswers from './MultipleChoiceAnswers';
 
 const initialState = null;
