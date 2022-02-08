@@ -4,12 +4,11 @@ import toast from 'react-hot-toast';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import _ from "lodash";
 import useAuth from '../../../hooks/useAuth';
-import CommonBtn from '../../Shared/CommonBtn/CommonBtn';
 
 const Responses = () => {
     const { id } = useParams();
     const {user} = useAuth();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
     const [questionSet, setQuestionSet] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [userQnaSet, setUserQnaSet] = useState([]);

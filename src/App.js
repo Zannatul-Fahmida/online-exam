@@ -20,6 +20,7 @@ import ReuseQuestion from './pages/Dashboard/QuestionForm/ReuseQuestion/ReuseQue
 import Responses from './pages/Dashboard/Responses/Responses';
 import Review from './pages/Dashboard/Review/Review';
 import ViewProfile from './pages/ViewProfile/ViewProfile';
+import ViewResponse from './pages/Dashboard/ExamForm/ViewResponse/ViewResponse';
 
 function App() {
   return (
@@ -77,6 +78,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/result/:id">
             <Responses />
+          </PrivateRoute>
+          <PrivateRoute path="/viewResponse/:resId">
+            <ViewResponse />
           </PrivateRoute>
           <Route path="*">
             <NotFound></NotFound>

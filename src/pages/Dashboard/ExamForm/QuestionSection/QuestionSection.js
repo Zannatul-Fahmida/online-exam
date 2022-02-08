@@ -89,6 +89,7 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
     const submit = async () => {
         const loading = toast.loading("Please wait...")
         const answerInfo = {
+            studentName: user.displayName,
             studentEmail: user.email,
             studentAns: qna,
             examTitle: questionSet.examTitle,
