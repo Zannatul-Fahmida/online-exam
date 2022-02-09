@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import QuestionSet from '../QuestionForm/QuestionSet/QuestionSet';
-import Responses from '../Responses/Responses';
 import { Tab } from '@headlessui/react';
+import AllResponses from '../AllResponses/AllResponses';
 
 const FormTab = () => {
     function classNames(...classes) {
@@ -22,7 +22,7 @@ const FormTab = () => {
                             )
                         }
                     >
-                        questions
+                        Questions
                     </Tab>
                     <Tab
                         className={({ selected }) =>
@@ -35,25 +35,15 @@ const FormTab = () => {
                             )
                         }
                     >
-                        responses
+                        Responses
                     </Tab>
                 </Tab.List>
                 <Tab.Panels>
-                    <Tab.Panel
-                        className={classNames(
-                            'bg-white',
-                            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-                        )}
-                    >
+                    <Tab.Panel>
                         <QuestionSet />
                     </Tab.Panel>
-                    <Tab.Panel
-                        className={classNames(
-                            'bg-white rounded-xl p-3',
-                            'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60'
-                        )}
-                    >
-                        <Responses />
+                    <Tab.Panel>
+                        <AllResponses />
                     </Tab.Panel>
                 </Tab.Panels>
             </Tab.Group>

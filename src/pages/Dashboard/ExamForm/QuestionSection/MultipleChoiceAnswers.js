@@ -11,7 +11,7 @@ const MultipleChoiceAnswers = ({ options = [], input, handleAnswerChange}) => {
                         <AnswerRadiobox
                             key={index}
                             className={classes.answer}
-                            selectBox={classes.correct}
+                            selectBox={classes.correct} 
                             text={option.title}
                             value={index}
                             checked={option.checked}
@@ -19,7 +19,7 @@ const MultipleChoiceAnswers = ({ options = [], input, handleAnswerChange}) => {
                         />
                     ) : (
                         <AnswerRadiobox
-                            key={index}
+                            key={index}    
                             className={`${classes.answer} ${option.correct
                                     ? classes.correct
                                     : option.checked

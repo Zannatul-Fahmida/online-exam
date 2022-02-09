@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { BiImageAdd } from 'react-icons/bi';
+import { BiImageAdd, BiMicrophone, BiMicrophoneOff } from 'react-icons/bi';
+import { GrPowerReset } from 'react-icons/gr';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 const MultiChoice = ({ setOption1,
     setCorrectOption1,
@@ -54,6 +56,16 @@ const MultiChoice = ({ setOption1,
         }
         return imageURL
     }
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+
+    if (!browserSupportsSpeechRecognition) {
+        return <span>Browser doesn't support speech recognition.</span>;
+    }
     return (
         <div className="flex flex-col w-full">
             <div className="flex">
@@ -65,6 +77,7 @@ const MultiChoice = ({ setOption1,
                             id=""
                             className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2"
                             placeholder="Question"
+                            defaultValue={transcript ? transcript : ''}
                             onBlur={(e) => setQuestionTitle(e.target.value)}
                         />
                         {/* image upload section  */}
@@ -80,16 +93,27 @@ const MultiChoice = ({ setOption1,
                                 <div className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-3 img-upload-btn">{<BiImageAdd className="text-2xl" />}</div>
                             </label>
                         </div>
+                        <div onClick={SpeechRecognition.startListening} className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-2 cursor-pointer">
+                            {<BiMicrophone className={listening ? "text-red-700 text-2xl" : "text-2xl"} />}
+                        </div>
+                        <div onClick={SpeechRecognition.stopListening} className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-2 cursor-pointer">
+                            {<BiMicrophoneOff className="text-2xl" />}
+                        </div>
+                        {
+                            transcript && <div onClick={resetTranscript} className="hover:bg-gray-100 p-2 rounded-full ml-4 md:ml-2 cursor-pointer">
+                                {<GrPowerReset className="text-2xl" />}
+                            </div>
+                        }
                     </div>
                 </div>
                 {/* image showing */}
                 {
                     questionTitleImg &&
                     <div className="w-1/6">
-                    <div>
-                        <img className={questionTitleImg && "w-12 h-12 rounded-full mx-auto"} src={questionTitleImg} alt='' />
+                        <div>
+                            <img className={questionTitleImg && "w-12 h-12 rounded-full mx-auto"} src={questionTitleImg} alt='' />
+                        </div>
                     </div>
-                </div>
                 }
             </div>
 
@@ -128,12 +152,12 @@ const MultiChoice = ({ setOption1,
                 {
                     option1Img &&
                     <div className="w-1/6">
-                    {/* image showing */}
-                    <div>
-                        <img className={option1Img && "w-12 h-12 rounded-full mx-auto"} src={option1Img} alt='' />
-                        {/* <img src={option1Img} alt="" /> */}
+                        {/* image showing */}
+                        <div>
+                            <img className={option1Img && "w-12 h-12 rounded-full mx-auto"} src={option1Img} alt='' />
+                            {/* <img src={option1Img} alt="" /> */}
+                        </div>
                     </div>
-                </div>
                 }
             </div>
             <div className="flex">
@@ -170,12 +194,12 @@ const MultiChoice = ({ setOption1,
                 {
                     option2Img &&
                     <div className="w-1/6">
-                    {/* image showing */}
-                    <div>
-                        <img className={option2Img && "w-12 h-12 rounded-full mx-auto"} src={option2Img} alt='' />
-                        {/* <img src={option1Img} alt="" /> */}
+                        {/* image showing */}
+                        <div>
+                            <img className={option2Img && "w-12 h-12 rounded-full mx-auto"} src={option2Img} alt='' />
+                            {/* <img src={option1Img} alt="" /> */}
+                        </div>
                     </div>
-                </div>
                 }
             </div>
             <div className="flex">
@@ -212,12 +236,12 @@ const MultiChoice = ({ setOption1,
                 {
                     option3Img &&
                     <div className="w-1/6">
-                    {/* image showing */}
-                    <div>
-                        <img className={option3Img && "w-12 h-12 rounded-full mx-auto"} src={option3Img} alt='' />
-                        {/* <img src={option1Img} alt="" /> */}
+                        {/* image showing */}
+                        <div>
+                            <img className={option3Img && "w-12 h-12 rounded-full mx-auto"} src={option3Img} alt='' />
+                            {/* <img src={option1Img} alt="" /> */}
+                        </div>
                     </div>
-                </div>
                 }
             </div>
             <div className="flex">
@@ -254,12 +278,12 @@ const MultiChoice = ({ setOption1,
                 {
                     option4Img &&
                     <div className="w-1/6">
-                    {/* image showing */}
-                    <div>
-                        <img className={option4Img && "w-12 h-12 rounded-full mx-auto"} src={option4Img} alt='' />
-                        {/* <img src={option1Img} alt="" /> */}
+                        {/* image showing */}
+                        <div>
+                            <img className={option4Img && "w-12 h-12 rounded-full mx-auto"} src={option4Img} alt='' />
+                            {/* <img src={option1Img} alt="" /> */}
+                        </div>
                     </div>
-                </div>
                 }
             </div>
             <div className="flex">
@@ -296,12 +320,12 @@ const MultiChoice = ({ setOption1,
                 {
                     option5Img &&
                     <div className="w-1/6">
-                    {/* image showing */}
-                    <div>
-                        <img className={option5Img && "w-12 h-12 rounded-full mx-auto"} src={option5Img} alt='' />
-                        {/* <img src={option1Img} alt="" /> */}
+                        {/* image showing */}
+                        <div>
+                            <img className={option5Img && "w-12 h-12 rounded-full mx-auto"} src={option5Img} alt='' />
+                            {/* <img src={option1Img} alt="" /> */}
+                        </div>
                     </div>
-                </div>
                 }
             </div>
         </div>

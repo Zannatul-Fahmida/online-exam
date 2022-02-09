@@ -4,7 +4,12 @@ import "./Answer.css";
 const AnswerCheckbox = ({ className, text,selectBox, ...rest }) => {
     const {checked} = { ...rest };
     return (
-                <label className={`${text.endsWith(".png") || text.endsWith(".jpg") ? `setLabelHeight ${className}` : className} ${checked === true && selectBox}`}>
+                <label 
+                onCopy={(e) => {
+                    e.preventDefault()
+                    return false;
+                }}
+                className={`${text.endsWith(".png") || text.endsWith(".jpg") ? `setLabelHeight ${className}` : className} ${checked === true && selectBox}`}>
                     <input type="checkbox" {...rest} className={`${checked === true && selectBox}`}/>
                     {
                         text.endsWith(".png") || text.endsWith(".jpg") ?

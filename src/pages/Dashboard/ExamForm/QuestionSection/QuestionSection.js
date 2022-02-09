@@ -7,7 +7,6 @@ import useAuth from '../../../../hooks/useAuth';
 import axios from 'axios';
 import swal from 'sweetalert';
 import "./Answer.css";
-import MultiChoice from '../../QuestionForm/MultiChoice/MultiChoice';
 import MultipleChoiceAnswers from './MultipleChoiceAnswers';
 import ParagraphAnswer from './ParagraphAnswer';
 import FileAnswer from './FileAnswer';
@@ -141,11 +140,13 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
     const submit = async () => {
         const loading = toast.loading("Please wait...")
         const answerInfo = {
+            studentName: user.displayName,
             studentEmail: user.email,
             studentAns: qna,
             examTitle: questionSet.examTitle,
             examDescription: questionSet.examDescription,
-            quesId: quesId
+            quesId: quesId, 
+            examMarks: questionSet.examMarks
         }
 
         await axios.post('http://localhost:5000/responses', answerInfo)
@@ -174,8 +175,13 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
             {!loading && qna && qna.length > 0 && (
                 <>
                     <div className="question-title">
-                        <h1>Question Title : {qna[currentQuestion].title}</h1>
-
+                        <h1
+                            onCopy={(e) => {
+                                e.preventDefault()
+                                return false;
+                            }}
+                        >Question Title : {qna[currentQuestion].title}</h1>
+                        <h4>Question can have multiple answers</h4>
                     </div>
                     {
                         qna[currentQuestion]?.question === "check-box" &&

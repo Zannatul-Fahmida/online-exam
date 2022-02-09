@@ -9,7 +9,7 @@ const Answers = ({ options = [], input, handleAnswerChange, toogleActive, select
         <>
             <h4>Question can have multiple answers</h4>
         <div className={classes.answers}>
-            {options.map((option, index) => (
+            {options?.map((option, index) => (
                 <Fragment key={index}>
                     {input ? (
                         <AnswerCheckbox

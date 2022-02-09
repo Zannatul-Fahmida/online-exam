@@ -28,72 +28,24 @@ const QuestionSet = () => {
                     {
                         questionSet?.questions?.map(ques => <div className="w-full">
                             <div className="flex justify-between">
-                                <p>{ques.questionTitle}</p>
+                                <p>{ques.title}</p>
                                 <p>{ques.mark}</p>
                             </div>
                             <form>
                                 {
-                                    ques.option1 && <>
-                                        <input
-                                            type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
-                                            className="mr-2"
-                                            id="option1"
-                                            value={ques.option1}
-                                        />
-                                        <label htmlFor="option1">{ques.option1}</label><br />
-                                    </>
-                                }
-                                {
-                                    ques.option2 && <>
-                                        <input
-                                            type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
-                                            className="mr-2"
-                                            id="option2"
-                                            value={ques.option2}
-                                        />
-                                        <label htmlFor="option2">{ques.option2}</label><br />
-                                    </>
-                                }
-                                {
-                                    ques.option3 &&
-                                    <>
-                                        <input
-                                            type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
-                                            className="mr-2"
-                                            id="option3"
-                                            value={ques.option3}
-                                        />
-                                        <label htmlFor="option3">{ques.option3}</label><br />
-                                    </>
-                                }
-                                {
-                                    ques.option4 &&
-                                    <>
-                                        <input
-                                            type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
-                                            className="mr-2"
-                                            id="option4"
-                                            value={ques.option4}
-                                        />
-                                        <label htmlFor="option4">{ques.option4}</label><br />
-                                    </>
-                                }
-                                {
-                                    ques.option5 &&
-                                    <>
-                                        <input
-                                            type={ques.question === "check-box" ? "checkbox" : "radio"}
-                                            name=""
-                                            className="mr-2"
-                                            id="option5"
-                                            value={ques.option5}
-                                        />
-                                        <label htmlFor="option5">{ques.option5}</label><br />
-                                    </>
+                                    ques?.options?.map(quest => <>{
+                                        quest.title && <>
+                                            <input
+                                                type={ques.question === "check-box" ? "checkbox" : "radio"}
+                                                name=""
+                                                className="mr-2"
+                                                id="option1"
+                                                value={quest.title}
+                                            />
+                                            <label htmlFor="option1">{quest.title}</label><br />
+                                        </>
+                                    }
+                                    </>)
                                 }
                             </form>
                             {
@@ -123,7 +75,7 @@ const QuestionSet = () => {
             </div>
             <p>Question code: {questionSet?._id}</p>
             <Link to={`/reuseQuestion/${questionSet._id}`}>
-            <button className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Reuse Question set</button>
+                <button className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 my-4">Reuse Question set</button>
             </Link>
         </div >
     );

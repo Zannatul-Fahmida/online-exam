@@ -6,7 +6,7 @@ import { Menu, Transition } from '@headlessui/react';
 
 const NavItems = () => {
     const { user, logOut } = useAuth();
-    const [active, setActive] = useState("home");
+    const [active, setActive] = useState("");
     return (
         <>
             <Link onClick={() => setActive("home")} className={active === "home" ? "text-lg hover:text-purple-800 my-2 border-b-4 border-purple-600 mx-4" : "text-lg hover:text-purple-800 my-2 mx-4"} to="/">
@@ -50,7 +50,7 @@ const NavItems = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right absolute right-10 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none flex flex-col justify-center">
+                        <Menu.Items className="origin-top-right absolute right-10 mt-2 w-48 rounded-md shadow-lg pt-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none flex flex-col justify-center">
                           <Menu.Item>
                               <p
                                 className='block px-4 py-2 text-sm text-purple-900'

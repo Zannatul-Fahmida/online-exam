@@ -5,7 +5,7 @@ import { FaQuoteRight } from 'react-icons/fa';
 const TestimonialCard = (props) => {
     const { review, name, role, img } = props.review;
     return (
-        <div class="w-full">
+        <div className="w-full">
             <div className="p-4 md:w-1/2 w-full mx-auto">
                 <div className="h-full bg-gray-100 shadow-inner hover:shadow-lg p-8 rounded">
                     <p className="text-gray-400 text-xl pb-3">
