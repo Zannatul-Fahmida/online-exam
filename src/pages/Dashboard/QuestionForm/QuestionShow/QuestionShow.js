@@ -28,7 +28,7 @@ const QuestionShow = (props) => {
                     </div>
                     <form>
                         {
-                            options.map(quest => <>{
+                            options?.map(quest => <>{
                                 quest.title && <>
                                     <input
                                         type={question === "check-box" ? "checkbox" : "radio"}

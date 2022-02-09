@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import FileShow from '../FileShow/FileShow';
+import Answers from '../QuestionSection/Answers';
 
 const ViewResponse = () => {
     const { resId } = useParams();
@@ -31,22 +33,9 @@ const ViewResponse = () => {
                                 </div>
                                 <form>
                                     {
-                                        res.options.map(resp => <>{
-                                            resp?.title && <div className="px-2 my-2">
-                                                <div className={resp.correct === true && resp.checked === true ? "bg-green-300 p-1 rounded-md" : "" || resp.correct === true && resp.checked === false || resp.correct === false && resp.checked === true ? "bg-red-400 p-1 rounded-md" : ""}>
-                                                <input
-                                                    type={res.question === "check-box" ? "checkbox" : "radio"}
-                                                    name=""
-                                                    className="mr-2"
-                                                    id="option1"
-                                                    value={resp.title}
-                                                />
-                                                <label htmlFor="option1">{resp.title}</label><br />
-                                            </div>
-                                            </div>
-                                        }
-                                        </>)
+                                        res?.options && <Answers options={res.options} />
                                     }
+
                                 </form>
                                 {
                                     res.question === "paragraph" && <>
@@ -56,17 +45,14 @@ const ViewResponse = () => {
                                             rows="4"
                                             className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2 pl-2"
                                             placeholder="Answer"
+                                            defaultValue={res.stdParagraphAns}
+                                            readOnly
                                         ></textarea>
                                     </>
                                 }
                                 {
                                     res.question === "file-upload" && <>
-                                        <input
-                                            type="file"
-                                            name=""
-                                            id=""
-                                            className="w-full text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 mb-2"
-                                        />
+                                        <FileShow fileId={res.stdFileAns} />
                                     </>
                                 }
                             </div>

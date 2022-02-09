@@ -80,6 +80,7 @@ const Responses = () => {
                                 <p className="mt-2 text-xl">{user.displayName}</p>
                                 <h2 className="leading-relaxed my-2">Examination Result</h2>
                                 <h2 className="title-font text-2xl mb-5">Your score {userScore.score} out of {userScore.totalMarks}</h2>
+                                <p>Score of multiple choice and checkbox</p>
                                 <Link to="/dashboard" className="text-xl bg-pink-200 text-purple-900 rounded-md px-5 py-2 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:transform-none">Back to Dashboard</Link>
                             </div>
                         </div>
