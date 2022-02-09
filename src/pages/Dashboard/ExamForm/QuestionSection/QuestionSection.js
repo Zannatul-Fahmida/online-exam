@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import _ from "lodash";
 import ProgressBar from './ProgressBar';
 import Answers from './Answers';
-import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
 import useAuth from '../../../../hooks/useAuth';
 import axios from 'axios';
@@ -10,6 +9,9 @@ import swal from 'sweetalert';
 import "./Answer.css";
 import MultiChoice from '../../QuestionForm/MultiChoice/MultiChoice';
 import MultipleChoiceAnswers from './MultipleChoiceAnswers';
+import ParagraphAnswer from './ParagraphAnswer';
+import FileAnswer from './FileAnswer';
+import toast, { Toaster } from 'react-hot-toast';
 
 const initialState = null;
 
@@ -17,9 +19,11 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "questions":
             action.value.forEach((question) => {
-                question.options.forEach((option) => {
-                    option.checked = false;
-                });
+                if (question.options) {
+                    question.options.forEach((option) => {
+                        option.checked = false;
+                    });
+                }
             });
             return action.value;
         case "answer":
@@ -37,6 +41,18 @@ const reducer = (state, action) => {
             });
 
             return Radioquestions;
+        case "fileAnswer":
+            const filequestions = _.cloneDeep(state);
+            filequestions[action.questionID].stdFileAns =
+                action.value;
+
+            return filequestions;
+        case "paragraphAnswer":
+            const paragraphquestions = _.cloneDeep(state);
+            paragraphquestions[action.questionID].stdParagraphAns =
+                action.value;
+
+            return paragraphquestions;
         default:
             return state;
     }
@@ -76,6 +92,41 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
             optionIndex: index,
             value: e.target.checked,
         });
+    }
+    const handleParagraphAns = (e) => {
+        dispatch({
+            type: "paragraphAnswer",
+            questionID: currentQuestion,
+            value: e.target.value,
+        });
+    }
+    const handleFileAnswer = (file) => {
+        const loading = toast.loading("File Uploading Please wait...")
+        console.log("upload file", file);
+        const formData = new FormData();
+        formData.append("fileName", file.name)
+        formData.append("type", file.type)
+        formData.append("file", file)
+        fetch('http://localhost:5000/fileupload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(result => {
+                toast.dismiss(loading);
+                if (result.insertedId) {
+                    console.log('file uplaodeded');
+                    dispatch({
+                        type: "fileAnswer",
+                        questionID: currentQuestion,
+                        value: result.insertedId,
+                    });
+                    return swal("Successfully Uploaded", "Your new service has been successfully added.", "success");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
     const nextQuestion = () => {
         if (currentQuestion + 1 < questions.length) {
@@ -124,7 +175,7 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
                 <>
                     <div className="question-title">
                         <h1>Question Title : {qna[currentQuestion].title}</h1>
-                        <h4>Question can have multiple answers</h4>
+
                     </div>
                     {
                         qna[currentQuestion]?.question === "check-box" &&
@@ -144,12 +195,31 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
                             handleAnswerChange={handleAnswerToggle}
                         />
                     }
+                    {
+                        qna[currentQuestion]?.question === "paragraph" &&
+
+                        <ParagraphAnswer
+                            input
+                            stdAns={qna[currentQuestion]?.stdParagraphAns}
+                            handleParagraphAns={handleParagraphAns}
+                        />
+                    }
+                    {
+                        qna[currentQuestion]?.question === "file-upload" &&
+
+                        <FileAnswer
+                            input
+                            fileId={qna[currentQuestion]?.stdFileAns}
+                            handleFileAnswer={handleFileAnswer}
+                        />
+                    }
                     <ProgressBar
                         next={nextQuestion}
                         prev={prevQuestion}
                         submit={submit}
                         submitQuiz={submitQuiz}
                     />
+                    <Toaster />
                 </>
             )}
         </>

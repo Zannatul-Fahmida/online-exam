@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import img1 from '../../../images/pexels-photo-356079.jpeg';
 import img2 from '../../../images/exam.jpg';
 import img3 from '../../../images/Review-submission.jpg';
+import resultImg from '../../../images/pexels-photo-356079.jpeg';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import { ImCross } from 'react-icons/im';
@@ -38,6 +39,10 @@ const Dashboard = () => {
                 <Link to="/exam" className="border border-transparent hover:border-purple-500 cursor-pointer">
                     <img src={img2} alt="" className="" />
                     <p className="font-bold">Give A Exam</p>
+                </Link>
+                <Link to="/myResults" className="border border-transparent hover:border-purple-500 cursor-pointer">
+                    <img src={resultImg} alt="" className="" />
+                    <p className="font-bold">My Results</p>
                 </Link>
                 <Link to="/review" className="border border-transparent hover:border-purple-500 cursor-pointer">
                     <img src={img3} alt="" className="" />

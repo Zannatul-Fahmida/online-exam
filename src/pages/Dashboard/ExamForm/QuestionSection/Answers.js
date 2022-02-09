@@ -6,6 +6,8 @@ import AnswerCheckbox from './AnswerCheckbox';
 const Answers = ({ options = [], input, handleAnswerChange, toogleActive, selectedAnswer }) => {
 
     return (
+        <>
+            <h4>Question can have multiple answers</h4>
         <div className={classes.answers}>
             {options.map((option, index) => (
                 <Fragment key={index}>
@@ -36,6 +38,7 @@ const Answers = ({ options = [], input, handleAnswerChange, toogleActive, select
                 </Fragment>
             ))}
         </div>
+        </>
     );
 };
 

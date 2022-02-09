@@ -50,39 +50,59 @@ const QuestionForm = () => {
         const ans = [...answer, newAnswer]
         setAnswer(ans);
     }
-    const correctAnswer = {
-        email: user.email,
-        title: questionTitle,
-        options: [
-            {
-                title: `${option1Img ? option1Img : option1}`,
-                correct: correctOption1
-            },
-            {
-                title: option2,
-                correct: correctOption2
-            },
-            {
-                title: option3,
-                correct: correctOption3
-            },
-            {
-                title: option4,
-                correct: correctOption4
-            },
-            {
-                title: option5,
-                correct: correctOption5
-            }
-        ],
-        mark,
-        answer,
-        question
-    }
-    const handleAddQuestion = async e => {
-        const loading = toast.loading('Uploading...Please wait!')
 
-        axios.post('https://agile-retreat-39153.herokuapp.com/addQuestions', correctAnswer)
+    // console.log("question pattern", correctAnswer);
+    const handleAddQuestion = async e => {
+        e.preventDefault();
+        const loading = toast.loading('Uploading...Please wait!')
+        const questionData = () => {
+            let quesData = {};
+            if (question === "multi-choice" || question === "check-box") {
+                quesData = {
+                    email: user.email,
+                    title: questionTitle,
+                    options: [
+                        {
+                            title: `${option1Img ? option1Img : option1}`,
+                            correct: correctOption1
+                        },
+                        {
+                            title: option2,
+                            correct: correctOption2
+                        },
+                        {
+                            title: option3,
+                            correct: correctOption3
+                        },
+                        {
+                            title: option4,
+                            correct: correctOption4
+                        },
+                        {
+                            title: option5,
+                            correct: correctOption5
+                        }
+                    ],
+                    mark,
+                    answer,
+                    question
+                }
+            }
+            if (question === "paragraph" || question === "file-upload") {
+                quesData = {
+                    email: user.email,
+                    title: questionTitle,
+                    mark,
+                    answer,
+                    question
+                }
+            }
+            return quesData;
+        }
+        const finalQuestionData = questionData();
+        console.log('perfect data', finalQuestionData);
+
+        axios.post('https://agile-retreat-39153.herokuapp.com/addQuestions', finalQuestionData)
             .then(res => {
                 if (res.data.insertedId) {
                     window.location.reload();
@@ -92,7 +112,6 @@ const QuestionForm = () => {
                     // return toast.success("Successfully Added!", "Your car has been successfully added.", "success");
                 }
             })
-        e.preventDefault();
     }
     useEffect(() => {
         fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`)
@@ -206,7 +225,7 @@ const QuestionForm = () => {
                                     setCorrectOption3={setCorrectOption3}
                                     setCorrectOption4={setCorrectOption4}
                                     setCorrectOption5={setCorrectOption5}
-                            
+
                                     setOption1Img={setOption1Img}
                                     option1Img={option1Img}
                                     setOption2={setOption2}

@@ -37,10 +37,11 @@ const Responses = () => {
     console.log("qna from result", userQnaSet);
     function calculate() {
         let score = 0;
+        let totalMarks = 0;
         questions.forEach((question, index1) => {
             let correctIndexes = [],
                 checkedIndexes = [];
-
+            if(question.options){
             question.options.forEach((option, index2) => {
                 if (option.correct) correctIndexes.push(index2)
                 if (qna[index1].options[index2].checked) {
@@ -49,10 +50,15 @@ const Responses = () => {
                 }
             });
             if (_.isEqual(correctIndexes, checkedIndexes)) {
-                score = score + 5;
+                score = score + parseInt(question.mark);
             }
+            totalMarks = totalMarks + parseInt(question.mark)
+        }
         })
-        return score
+        return {
+            score,
+            totalMarks
+        }
     }
     const userScore = calculate();
     return (
@@ -67,7 +73,7 @@ const Responses = () => {
                             </div>
                             <div className="flex-grow">
                                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">Examination Result</h2>
-                                <p className="leading-relaxed text-base mb-4">Your score {userScore} out of {questions.length * 5}</p>
+                                <p className="leading-relaxed text-base mb-4">Your short Questions score {userScore.score} out of {userScore.totalMarks}</p>
                                 {/* <CommonBtn destination="/signup" title="Sign up" /> */}
                             </div>
                         </div>
