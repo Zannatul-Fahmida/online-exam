@@ -7,7 +7,10 @@ const Answers = ({ options = [], input, handleAnswerChange, toogleActive, select
 
     return (
         <>
-            <h4>Question can have multiple answers</h4>
+        <div className="text-base font-semibold capitalize w-full my-2 py-1 px-2 rounded text-teal-600 bg-green-500 last:mr-0 mr-1">
+
+            <h4 >Question can have multiple answers</h4>
+        </div>
         <div className={classes.answers}>
             {options?.map((option, index) => (
                 <Fragment key={index}>

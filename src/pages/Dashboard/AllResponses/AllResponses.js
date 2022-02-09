@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ShowMarks from './ShowMarks';
 
 const AllResponses = () => {
     const { quesId } = useParams();
@@ -37,24 +38,8 @@ const AllResponses = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        responses.map(res =>
-                                            res.quesId === quesId && <tr
-                                                key={res._id}
-                                                className="border-b">
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    {res.studentName}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    {res.studentEmail}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    /{res.examMarks}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    <Link to={`/viewResponse/${res._id}`} className="text-md font-medium bg-pink-200 text-purple-900 rounded-md px-3 py-2">View</Link>
-                                                </td>
-                                            </tr>
+                                        responses.map((res, index) =>
+                                            res.quesId === quesId && <ShowMarks key={res._id} res={res} index={index}/>
                                         )
                                     }
                                 </tbody>

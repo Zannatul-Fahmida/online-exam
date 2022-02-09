@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import img1 from '../../../images/pexels-photo-356079.jpeg';
 import img2 from '../../../images/exam.jpg';
 import img3 from '../../../images/Review-submission.jpg';
-import resultImg from '../../../images/pexels-photo-356079.jpeg';
+import resultImg from '../../../images/result.webp';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import { ImCross } from 'react-icons/im';

@@ -49,7 +49,7 @@
   }
   
   .wrong {
-    background: var(--dangerRed) !important;
+    background: rgb(209, 12, 12) !important;
     font-weight: 600;
   }
   

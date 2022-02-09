@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FileShow from '../FileShow/FileShow';
 import Answers from '../QuestionSection/Answers';
+import MultipleChoiceAnswers from '../QuestionSection/MultipleChoiceAnswers';
 
 const ViewResponse = () => {
     const { resId } = useParams();
@@ -11,6 +12,7 @@ const ViewResponse = () => {
             .then(res => res.json())
             .then(data => setResponse(data))
     }, [resId]);
+    console.log(response);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
@@ -22,21 +24,22 @@ const ViewResponse = () => {
                     <p>Student Email: {response.studentEmail}</p>
                 </div>
             </div>
-            <div className="mt-5 w-full md:w-2/3">
+            <div className="mt-5 py-8 w-full md:w-2/3">
                 <div className="mx-4 md:mx-0">
                     {
                         response?.studentAns?.map(res =>
                             <div className="w-full">
                                 <div className="flex justify-between">
-                                    <p>{res.title}</p>
+                                    <p className='capitalize text-xl font-semibold'>{res.title}</p>
                                     <p>{res.mark}</p>
                                 </div>
-                                <form>
-                                    {
-                                        res?.options && <Answers options={res.options} />
-                                    }
+                                {
+                                    res?.question === "multi-choice" && <MultipleChoiceAnswers options={res.options} />
+                                }
+                                {
+                                    res?.question === "check-box" && <Answers options={res.options} />
+                                }
 
-                                </form>
                                 {
                                     res.question === "paragraph" && <>
                                         <textarea
@@ -52,7 +55,13 @@ const ViewResponse = () => {
                                 }
                                 {
                                     res.question === "file-upload" && <>
-                                        <FileShow fileId={res.stdFileAns} />
+                                        {res.stdFileAns ?
+                                            <FileShow fileId={res.stdFileAns} />
+                                            :
+                                            <div>
+                                                <h2>No File Uploaded</h2>
+                                            </div>
+                                        }
                                     </>
                                 }
                             </div>

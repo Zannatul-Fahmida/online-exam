@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NavItems from '../NavItems/NavItems';
 import { CgMenuGridR } from "react-icons/cg";
 import { Link } from 'react-router-dom';
-import logoImg from '../../../images/logo.png';
+import logoImg from '../../../images/exam.png';
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);

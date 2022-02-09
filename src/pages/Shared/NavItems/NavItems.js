@@ -50,7 +50,7 @@ const NavItems = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right absolute right-10 mt-2 w-48 rounded-md shadow-lg pt-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none flex flex-col justify-center">
+                        <Menu.Items className="popover-dashboard py-4 origin-top-right absolute right-10 mt-2 w-48 rounded-md shadow-lg pt-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none flex flex-col justify-center">
                           <Menu.Item>
                               <p
                                 className='block px-4 py-2 text-sm text-purple-900'
@@ -69,13 +69,13 @@ const NavItems = () => {
                           <Menu.Item>
                               <Link
                                 to="/dashboard"
-                                className='block px-4 py-2 text-sm text-gray-700'
+                                className='block px-4 py-2 mb-4 text-sm text-gray-700'
                               >
                                 Dashboard
                               </Link>
                           </Menu.Item>
                           <Menu.Item>
-                              <button className="justify-self-center items-center py-1.5 px-7 border-2 border-purple-700 rounded-md text-xl font-bold text-purple-900 bg-pink-200 hover:bg-purple-700 hover:text-white" onClick={logOut}>Log out</button>
+                              <button className="bg-red-500 hover:bg-red-700 text-white text-center py-1 px-2 w-3/4 mx-auto rounded-full" onClick={logOut}>Log out</button>
                           </Menu.Item>
                         </Menu.Items>
                       </Transition>
