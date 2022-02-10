@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import _ from "lodash";
 import axios from 'axios';
+import _ from "lodash";
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
-const ShowMarks = ({res, index , myRes}) => {
+const ShowMarks = ({res, index , myRes, teacher}) => {
     
     const [loading, setLoading] = useState(true);
     const [questionSet, setQuestionSet] = useState([]);
     const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${res.quesId}`)
+        axios.get(`http://localhost:5000/questionSet/${res.quesId}`)
             .then(res => {
                 setQuestionSet(res.data);
                 setQuestions(res.data.questions)
                 setLoading(false);
             })
-            .catch(error => toast.error(error.message))
+            .catch(error => {
+                
+            })
     }, [res.quesId]);
     function calculate() {
         let score = 0;
@@ -62,7 +64,7 @@ const ShowMarks = ({res, index , myRes}) => {
                     {userScore.score}/{userScore.totalMarks}
                 </td>
                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <Link to={`/viewResponse/${res._id}`} className="bg-pink-500 hover:bg-pink-700 text-white text-center py-2 px-4 rounded-full">View</Link>
+                    <Link  to={`/viewResponse/${res._id}?teacher=${teacher}`} className="bg-pink-500 hover:bg-pink-700 text-white text-center py-2 px-4 rounded-full">View</Link>
                 </td>
             </tr>
         </>

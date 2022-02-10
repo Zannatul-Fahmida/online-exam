@@ -1,4 +1,8 @@
+import axios from 'axios';
+import _ from "lodash";
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import FileShow from '../FileShow/FileShow';
 import Answers from '../QuestionSection/Answers';
@@ -7,12 +11,35 @@ import MultipleChoiceAnswers from '../QuestionSection/MultipleChoiceAnswers';
 const ViewResponse = () => {
     const { resId } = useParams();
     const [response, setResponse] = useState({});
+    const { search } = useLocation();
+    console.log('quq', new URLSearchParams(search).get('teacher'));
+    const isTeacher = new URLSearchParams(search).get('teacher');
     useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/responses/${resId}`)
-            .then(res => res.json())
-            .then(data => setResponse(data))
+        axios.get(`http://localhost:5000/responses/singleSet/${resId}`)
+            .then(data => setResponse(data.data))
     }, [resId]);
-    console.log(response);
+    const handleUpdateMark = (value, index) => {
+        const loading = toast.loading("Please wait updating mark...")
+        console.log(value, "index", index);
+        const questionMark = parseInt(response.studentAns[index].mark)
+        if (value > questionMark) {
+            return toast.error(`please enter Mark below ${questionMark + 1}`, {
+                id: loading
+            })
+        }
+        const studentAnswers = _.cloneDeep(response.studentAns)
+        studentAnswers[index].obtainMark = value;
+        axios.put(`http://localhost:5000/markupdate/${resId}`, studentAnswers)
+            .then(data => {
+                if (data.data.modifiedCount === 1) {
+                    toast.success("updated", {
+                        id: loading,
+                    })
+                }
+            })
+        return studentAnswers;
+    }
+    console.log('rsdi', resId);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
@@ -27,7 +54,7 @@ const ViewResponse = () => {
             <div className="mt-5 py-8 w-full md:w-2/3">
                 <div className="mx-4 md:mx-0">
                     {
-                        response?.studentAns?.map(res =>
+                        response?.studentAns?.map((res, index) =>
                             <div className="w-full">
                                 <div className="flex justify-between">
                                     <p className='capitalize text-xl font-semibold'>{res.title}</p>
@@ -51,12 +78,26 @@ const ViewResponse = () => {
                                             defaultValue={res.stdParagraphAns}
                                             readOnly
                                         ></textarea>
+                                        {isTeacher === true &&
+                                            <>
+                                                <span>Marks Obtain</span>
+                                                <input type="number" className='ml-2 border-2' onChange={(e) => handleUpdateMark(e.target.value, index)} defaultValue={res.obtainMark} />
+                                            </>
+                                        }
                                     </>
                                 }
                                 {
                                     res.question === "file-upload" && <>
                                         {res.stdFileAns ?
-                                            <FileShow fileId={res.stdFileAns} />
+                                            <>
+                                                <FileShow fileId={res.stdFileAns} />
+                                                {isTeacher === true &&
+                                                    <>
+                                                        <span>Marks Obtain</span>
+                                                        <input type="number" className='ml-2 border-2' onChange={(e) => handleUpdateMark(e.target.value, index)} defaultValue={res.obtainMark} />
+                                                    </>
+                                                }
+                                            </>
                                             :
                                             <div>
                                                 <h2>No File Uploaded</h2>

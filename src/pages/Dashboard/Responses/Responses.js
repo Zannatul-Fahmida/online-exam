@@ -1,8 +1,8 @@
 import axios from 'axios';
+import _ from "lodash";
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import _ from "lodash";
+import { Link, useHistory, useParams } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Responses = () => {
@@ -17,7 +17,7 @@ const Responses = () => {
     const { state } = location;
     const { qna } = state; // user answer data from direct state
     useEffect(() => {
-        axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${id}`)
+        axios.get(`http://localhost:5000/questionSet/${id}`)
             .then(res => {
                 setQuestionSet(res.data);
                 setQuestions(res.data.questions)

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const CommonBtn = ({ title, destination }) => {
     return (
-        <Link to={destination} className="md:w-3/12 justify-self-center items-center py-1.5 px-7 border-2 border-purple-700 rounded-md text-xl font-bold text-purple-900 bg-pink-200 hover:bg-purple-700 hover:text-white">{title}
+        <Link to={destination} className="bg-indigo-700 hover:bg-indigo-900 text-white text-center text-2xl py-2 px-4 rounded-full">{title}
         </Link>
     );
 };

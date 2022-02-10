@@ -102,7 +102,7 @@ const QuestionForm = () => {
         const finalQuestionData = questionData();
         console.log('perfect data', finalQuestionData);
 
-        axios.post('https://agile-retreat-39153.herokuapp.com/addQuestions', finalQuestionData)
+        axios.post('http://localhost:5000/addQuestions', finalQuestionData)
             .then(res => {
                 if (res.data.insertedId) {
                     window.location.reload();
@@ -114,14 +114,14 @@ const QuestionForm = () => {
             })
     }
     useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`)
+        fetch(`http://localhost:5000/questions/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestions(data))
     }, [user.email]);
     const handleUploadQuestion = () => {
         const email = user.email;
         const newQuestionSet = { email, examTitle, instituteName, examDescription, examMarks, examTime, questions: [...questions], date, endingTime, startingTime };
-        fetch('https://agile-retreat-39153.herokuapp.com/addQuestionSet', {
+        fetch('http://localhost:5000/addQuestionSet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ const QuestionForm = () => {
 
                 }
             })
-        fetch(`https://agile-retreat-39153.herokuapp.com/questions/${user.email}`, {
+        fetch(`http://localhost:5000/questions/${user.email}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

@@ -14,7 +14,7 @@ const ReuseQuestion = () => {
     const [date, setDate] = useState(`${questions.date}`);
     const handleSubmit = e => {
         const details = { instituteName, examTitle, examTime, examDescription, startingTime, endingTime, date };
-        const url = `https://agile-retreat-39153.herokuapp.com/questionSet/${questionId}`
+        const url = `http://localhost:5000/questionSet/${questionId}`
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -32,7 +32,7 @@ const ReuseQuestion = () => {
     };
 
     useEffect(() => {
-        const url = `https://agile-retreat-39153.herokuapp.com/questionSet/${questionId}`
+        const url = `http://localhost:5000/questionSet/${questionId}`
         fetch(url)
             .then(res => res.json())
             .then(data => setQuestions(data))

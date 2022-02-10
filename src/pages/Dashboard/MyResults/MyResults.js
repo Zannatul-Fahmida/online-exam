@@ -14,7 +14,7 @@ const MyResults = () => {
             setMyAnswers(res.data)
             setLoading(false)
         }) 
-        .catch(error => toast.error(error.message))
+        .catch(error => console.log(error.message))
     },[user.email])
     console.log(myAnswers);
     return (
@@ -44,8 +44,8 @@ const MyResults = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        myAnswers.map((res, index) => <ShowMarks key={res._id} res={res} index={index} myRes/>
+                                    { loading ? <div>loading..</div> :
+                                        myAnswers.map((res, index) => <ShowMarks key={res._id} res={res} index={index} myRes teacher={false}/>
                                         )
                                     }
                                 </tbody>

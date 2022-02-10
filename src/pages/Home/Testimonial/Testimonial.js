@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import TestimonialCard from '../TestimonialCard/TestimonialCard';
 import Carousel from 'react-elastic-carousel';
+import TestimonialCard from '../TestimonialCard/TestimonialCard';
 
 const Testimonial = () => {
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
-        fetch('https://agile-retreat-39153.herokuapp.com/reviews')
+        fetch('http://localhost:5000/reviews')
             .then(res => res.json())
             .then(data => setReviews(data))
     })

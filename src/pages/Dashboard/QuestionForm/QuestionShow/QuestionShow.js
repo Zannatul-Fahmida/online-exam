@@ -6,7 +6,7 @@ const QuestionShow = (props) => {
     const [questions, setQuestions] = useState([]);
 
     const handleDelete = id => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/question/${id}`, {
+        fetch(`http://localhost:5000/question/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

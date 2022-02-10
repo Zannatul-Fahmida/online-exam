@@ -4,17 +4,14 @@ import bannerImg from "../../../images/banner.png";
 
 const Banner = () => {
     return (
-		<div className="bg-gradient-to-r from-blue-200 via-indigo-300 to-purple-500 mb-12">
+		<div className="bg-gradient-to-r from-blue-200 via-indigo-300 to-purple-500 mb-12 h-screen">
 			<div className="container mx-auto py-8 md:flex md:items-center px-2">
 				<div className="mx-auto w-2/3 py-24 text-center md:text-left">
-					<h2 className="text-3xl md:text-5xl font-bold text-purple-800">
-						Online Examination Application
+					<h2 className="text-white font-semibold text-5xl">
+						Online <span className="text-purple-800">Examination </span> Application
 					</h2>
-					<p className="text-xl pt-4 pb-8">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero Lorem
-						ipsum dolor sit amet consectetur adipisicing elit. Voluptatum eius
-						praesentium debitis facilis enim asperiores et laboriosam earum id
-						laborum. sapiente vitae dolore doloremque sint eos?
+					<p className="text-base pt-4 pb-8">
+					Online Exam is a company which provides online examination services to coaching institutes. At Online Exam portal any institute can conduct online exam with the help of powerful admin tools. Institue can schedule the exam, reuse the questions, check the results instantly.
 					</p>
 					<CommonBtn destination="/features" title="Features" />
 				</div>

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import img1 from '../../../images/pexels-photo-356079.jpeg';
-import img2 from '../../../images/exam.jpg';
-import img3 from '../../../images/Review-submission.jpg';
-import resultImg from '../../../images/result.webp';
+import { HiOutlineViewList } from 'react-icons/hi';
+import { ImCross } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
-import { ImCross } from 'react-icons/im';
-import { HiOutlineViewList } from 'react-icons/hi';
+import img2 from '../../../images/exam.jpg';
+import img1 from '../../../images/pexels-photo-356079.jpeg';
+import resultImg from '../../../images/result.webp';
+import img3 from '../../../images/Review-submission.jpg';
 
 const Dashboard = () => {
     const { user } = useAuth();
     const [questionSet, setQuestionSet] = useState([]);
     useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/myQuestionSet/${user.email}`)
+        fetch(`http://localhost:5000/myQuestionSet/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
     }, [user.email]);
     const handleDelete = id => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${id}`, {
+        fetch(`http://localhost:5000/questionSet/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

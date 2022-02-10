@@ -22,6 +22,7 @@ import Review from './pages/Dashboard/Review/Review';
 import ViewProfile from './pages/ViewProfile/ViewProfile';
 import MyResults from './pages/Dashboard/MyResults/MyResults';
 import ViewResponse from './pages/Dashboard/ExamForm/ViewResponse/ViewResponse';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
             <NotFound></NotFound>
           </Route>
         </Switch>
+        <Toaster />
       </Router>
     </AuthProvider>
   );

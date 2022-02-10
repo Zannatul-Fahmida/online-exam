@@ -22,7 +22,7 @@ const ExamForm = () => {
     const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesCode}`)
+        axios.get(`http://localhost:5000/questionSet/${quesCode}`)
             .then(res => {
                 setQuestionSet(res.data);
                 setQuestions(res.data.questions)
@@ -39,7 +39,7 @@ const ExamForm = () => {
 
     const handleSubmit = e => {
         const newResponse = { studentName, studentEmail, questionSet: questionSet.questions, multipleAnswer, checkboxAnswer, paragraphAnswer };
-        fetch('https://agile-retreat-39153.herokuapp.com/responses', {
+        fetch('http://localhost:5000/responses', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

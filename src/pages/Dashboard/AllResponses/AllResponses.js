@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ShowMarks from './ShowMarks';
 
 const AllResponses = () => {
     const { quesId } = useParams();
     const [responses, setResponses] = useState([]);
     useEffect(() => {
-        fetch(`https://agile-retreat-39153.herokuapp.com/responses`)
+        fetch(`http://localhost:5000/responses`)
             .then(res => res.json())
             .then(data => setResponses(data))
     }, [quesId]);
@@ -39,7 +39,7 @@ const AllResponses = () => {
                                 <tbody>
                                     {
                                         responses.map((res, index) =>
-                                            res.quesId === quesId && <ShowMarks key={res._id} res={res} index={index}/>
+                                            res.quesId === quesId && <ShowMarks key={res._id} res={res} index={index} teacher={true}/>
                                         )
                                     }
                                 </tbody>

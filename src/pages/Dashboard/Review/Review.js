@@ -9,7 +9,7 @@ const Review = () => {
     const [role, setRole] = useState('');
     const handleSubmit = e => {
         const reviews = { review, name, role, img: user.photoURL };
-        const url = `https://agile-retreat-39153.herokuapp.com/reviews`
+        const url = `http://localhost:5000/reviews`
         fetch(url, {
             method: 'POST',
             headers: {
