@@ -39,22 +39,22 @@ const ViewResponse = () => {
             })
         return studentAnswers;
     }
-    console.log('rsdi', resId);
+    console.log('rsdi', response);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
             <div className="bg-white text-left w-full md:w-2/3 rounded border-t-8 border-b-8 border-blue-800 p-7 filter drop-shadow-lg">
                 <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
-                    <h2 className="text-2xl font-medium">{response.examTitle}</h2>
-                    <p>{response.examDescription}</p>
-                    <p>Marks: {response.examMarks}</p>
-                    <p>Student Name: {response.studentName}</p>
-                    <p>Student Email: {response.studentEmail}</p>
+                    <h2 className="text-2xl font-medium">{response.responses?.examTitle}</h2>
+                    <p>{response.responses?.examDescription}</p>
+                    <p>Marks: {response.responses?.examMarks}</p>
+                    <p>Student Name: {response.responses?.studentName}</p>
+                    <p>Student Email: {response.responses?.studentEmail}</p>
                 </div>
             </div>
             <div className="mt-5 py-8 w-full md:w-2/3">
                 <div className="mx-4 md:mx-0">
                     {
-                        response?.studentAns?.map((res, index) =>
+                        response?.responses?.studentAns?.map((res, index) =>
                             <div className="w-full">
                                 <div className="flex justify-between">
                                     <p className='capitalize text-xl font-semibold'>{res.title}</p>

@@ -73,7 +73,7 @@ const ExamForm = () => {
                         <AlertTimer endingTime={questionSet.endingTime} />
                     </div>
                 }
-                <div className="flex flex-col w-full md:w-1/2 items-center mx-auto">
+                <div className="flex flex-col w-full md:w-2/3 items-center mx-auto">
                     <p className="text-3xl">{questionSet?.instituteName}</p>
                     <p className="text-lg">{questionSet?.examTitle}</p>
                     <p>{questionSet?.examDescription}</p>

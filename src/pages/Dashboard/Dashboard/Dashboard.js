@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import img2 from '../../../images/exam.jpg';
 import img1 from '../../../images/pexels-photo-356079.jpeg';
-import resultImg from '../../../images/result.webp';
+import resultImg from '../../../images/result.jpg';
 import img3 from '../../../images/Review-submission.jpg';
 
 const Dashboard = () => {

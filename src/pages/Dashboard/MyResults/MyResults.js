@@ -5,17 +5,17 @@ import useAuth from '../../../hooks/useAuth';
 import ShowMarks from '../AllResponses/ShowMarks';
 
 const MyResults = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [myAnswers, setMyAnswers] = useState([]);
-    const [loading, setLoading]= useState(true);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         axios.get(`http://localhost:5000/responses/${user.email}`)
-        .then(res => {
-            setMyAnswers(res.data)
-            setLoading(false)
-        }) 
-        .catch(error => console.log(error.message))
-    },[user.email])
+            .then(res => {
+                setMyAnswers(res.data)
+                setLoading(false)
+            })
+            .catch(error => console.log(error.message))
+    }, [user.email])
     console.log(myAnswers);
     return (
         <div className="py-4 flex flex-col items-center justify-center">
@@ -44,8 +44,10 @@ const MyResults = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    { loading ? <div>loading..</div> :
-                                        myAnswers.map((res, index) => <ShowMarks key={res._id} res={res} index={index} myRes teacher={false}/>
+                                    {loading ? <div className="text-center my-5">
+                                        <h2 className="text-purple-900 font-bold">Loading...</h2>
+                                    </div> :
+                                        myAnswers.map((res, index) => <ShowMarks key={res._id} res={res} index={index} myRes teacher={false} />
                                         )
                                     }
                                 </tbody>

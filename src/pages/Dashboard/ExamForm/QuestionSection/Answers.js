@@ -7,7 +7,7 @@ const Answers = ({ options = [], input, handleAnswerChange, toogleActive, select
 
     return (
         <>
-        <div className="text-base font-semibold capitalize w-full my-2 py-1 px-2 rounded text-teal-600 bg-green-500 last:mr-0 mr-1">
+        <div className="text-base capitalize w-full my-2 py-1 rounded">
 
             <h4 >Question can have multiple answers</h4>
         </div>

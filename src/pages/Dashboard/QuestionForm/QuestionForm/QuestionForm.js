@@ -242,7 +242,7 @@ const QuestionForm = () => {
                                     option5Img={option5Img}
                                 ></MultiChoice>
                                 <div className="flex flex-wrap md:flex-row items-center mt-2">
-                                    <label className="block pb-3 md:pb-0">
+                                    {/* <label className="block pb-3 md:pb-0">
                                         <span className="text-gray-700">Correct Answer</span>
                                         <select className="mx-2 text-lg border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2" onBlur={handleMultipleChange}>
                                             <option value={option1}>Option 1</option>
@@ -251,7 +251,7 @@ const QuestionForm = () => {
                                             <option value={option4}>Option 4</option>
                                             <option value={option5}>Option 5</option>
                                         </select>
-                                    </label>
+                                    </label> */}
                                     <input
                                         className="border rounded border-gray-200 focus:outline-none focus:border-gray-200 pl-2 mr-2"
                                         type="text"

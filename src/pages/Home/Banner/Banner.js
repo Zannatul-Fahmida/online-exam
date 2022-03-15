@@ -4,10 +4,10 @@ import bannerImg from "../../../images/banner.png";
 
 const Banner = () => {
     return (
-		<div className="bg-gradient-to-r from-blue-200 via-indigo-300 to-purple-500 mb-12 h-screen">
+		<div className="bg-gradient-to-r from-blue-200 via-indigo-300 to-purple-500 mb-12">
 			<div className="container mx-auto py-8 md:flex md:items-center px-2">
 				<div className="mx-auto w-2/3 py-24 text-center md:text-left">
-					<h2 className="text-white font-semibold text-5xl">
+					<h2 className="font-semibold text-5xl">
 						Online <span className="text-purple-800">Examination </span> Application
 					</h2>
 					<p className="text-base pt-4 pb-8">

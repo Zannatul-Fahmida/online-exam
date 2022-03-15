@@ -75,7 +75,7 @@ const NavItems = () => {
                               </Link>
                           </Menu.Item>
                           <Menu.Item>
-                              <button className="bg-red-500 hover:bg-red-700 text-white text-center py-1 px-2 w-3/4 mx-auto rounded-full" onClick={logOut}>Log out</button>
+                              <button className="bg-red-500 hover:bg-red-700 text-white text-center py-1 px-2 w-3/4 mx-auto rounded-lg" onClick={logOut}>Log out</button>
                           </Menu.Item>
                         </Menu.Items>
                       </Transition>
