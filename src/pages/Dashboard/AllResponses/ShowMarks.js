@@ -1,11 +1,9 @@
 import axios from 'axios';
 import _ from "lodash";
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 const ShowMarks = ({res, index , myRes, teacher}) => {
-    
     const [loading, setLoading] = useState(true);
     const [questionSet, setQuestionSet] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -36,7 +34,7 @@ const ShowMarks = ({res, index , myRes, teacher}) => {
                 }
             });
             if (_.isEqual(correctIndexes, checkedIndexes)) {
-                score = score + parseInt(question.mark);
+                score = score + parseInt(question.mark) + parseInt(res?.studentAns?.map(ans=>ans?.obtainMark ? ans.obtainMark : 0));
             }
         }
         totalMarks = totalMarks + parseInt(question.mark)
@@ -47,8 +45,7 @@ const ShowMarks = ({res, index , myRes, teacher}) => {
         }
     }
     const userScore = calculate();
-    
-    console.log(userScore) 
+    console.log(res.studentAns.map(ans=>console.log(ans?.obtainMark ? ans.obtainMark : 0)));
     return (
         <>
             <tr

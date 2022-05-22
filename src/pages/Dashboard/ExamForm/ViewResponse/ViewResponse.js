@@ -21,13 +21,13 @@ const ViewResponse = () => {
     const handleUpdateMark = (value, index) => {
         const loading = toast.loading("Please wait updating mark...")
         console.log(value, "index", index);
-        const questionMark = parseInt(response.studentAns[index].mark)
+        const questionMark = parseInt(response.responses.studentAns[index].mark)
         if (value > questionMark) {
             return toast.error(`please enter Mark below ${questionMark + 1}`, {
                 id: loading
             })
         }
-        const studentAnswers = _.cloneDeep(response.studentAns)
+        const studentAnswers = _.cloneDeep(response.responses.studentAns)
         studentAnswers[index].obtainMark = value;
         axios.put(`http://localhost:5000/markupdate/${resId}`, studentAnswers)
             .then(data => {
@@ -78,7 +78,7 @@ const ViewResponse = () => {
                                             defaultValue={res.stdParagraphAns}
                                             readOnly
                                         ></textarea>
-                                        {isTeacher === true &&
+                                        {isTeacher === 'true' &&
                                             <>
                                                 <span>Marks Obtain</span>
                                                 <input type="number" className='ml-2 border-2' onChange={(e) => handleUpdateMark(e.target.value, index)} defaultValue={res.obtainMark} />
