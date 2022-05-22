@@ -106,7 +106,7 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
         formData.append("fileName", file.name)
         formData.append("type", file.type)
         formData.append("file", file)
-        fetch('http://localhost:5000/fileupload', {
+        fetch('https://agile-retreat-39153.herokuapp.com/fileupload', {
             method: 'POST',
             body: formData
         })
@@ -145,11 +145,11 @@ const QuestionSection = ({ questionSet, questions, loading, quesId }) => {
             studentAns: qna,
             examTitle: questionSet.examTitle,
             examDescription: questionSet.examDescription,
-            quesId: quesId, 
+            quesId: quesId,
             examMarks: questionSet.examMarks
         }
 
-        await axios.post('http://localhost:5000/responses', answerInfo)
+        await axios.post('https://agile-retreat-39153.herokuapp.com/responses', answerInfo)
             .then(res => {
                 toast.dismiss(loading);
                 if (res.data) {

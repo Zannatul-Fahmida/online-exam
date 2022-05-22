@@ -3,13 +3,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import useAuth from '../../../hooks/useAuth';
 
 const Review = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [review, setReview] = useState('');
     const [name, setName] = useState('');
     const [role, setRole] = useState('');
     const handleSubmit = e => {
         const reviews = { review, name, role, img: user.photoURL };
-        const url = `http://localhost:5000/reviews`
+        const url = `https://agile-retreat-39153.herokuapp.com/reviews`
         fetch(url, {
             method: 'POST',
             headers: {

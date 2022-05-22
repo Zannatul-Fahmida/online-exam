@@ -6,7 +6,7 @@ const AllResponses = () => {
     const { quesId } = useParams();
     const [responses, setResponses] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/responses`)
+        fetch(`https://agile-retreat-39153.herokuapp.com/responses`)
             .then(res => res.json())
             .then(data => setResponses(data))
     }, [quesId]);
@@ -39,7 +39,7 @@ const AllResponses = () => {
                                 <tbody>
                                     {
                                         responses.map((res, index) =>
-                                            res.quesId === quesId && <ShowMarks key={res._id} res={res} index={index} teacher={true}/>
+                                            res.quesId === quesId && <ShowMarks key={res._id} res={res} index={index} teacher={true} />
                                         )
                                     }
                                 </tbody>

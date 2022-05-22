@@ -6,7 +6,7 @@ const QuestionSet = () => {
     const { quesId } = useParams();
     const [questionSet, setQuestionSet] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/questionSet/${quesId}`)
+        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${quesId}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
     }, [quesId]);

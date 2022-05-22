@@ -9,7 +9,7 @@ const MyResults = () => {
     const [myAnswers, setMyAnswers] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        axios.get(`http://localhost:5000/responses/${user.email}`)
+        axios.get(`https://agile-retreat-39153.herokuapp.com/responses/${user.email}`)
             .then(res => {
                 setMyAnswers(res.data)
                 setLoading(false)

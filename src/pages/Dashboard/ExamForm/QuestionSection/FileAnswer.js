@@ -6,7 +6,7 @@ const FileAnswer = ({ input, fileId, handleFileAnswer }) => {
     const [file, setFile] = useState(null)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/getFile/${fileId}`)
+        axios.get(`https://agile-retreat-39153.herokuapp.com/getFile/${fileId}`)
             .then((data) => setFile(data.data))
     }, [fileId])
     return (

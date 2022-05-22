@@ -7,7 +7,7 @@ import useAuth from '../../../hooks/useAuth';
 
 const Responses = () => {
     const { id } = useParams();
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [loading, setLoading] = useState(true);
     const [questionSet, setQuestionSet] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -17,7 +17,7 @@ const Responses = () => {
     const { state } = location;
     const { qna } = state; // user answer data from direct state
     useEffect(() => {
-        axios.get(`http://localhost:5000/questionSet/${id}`)
+        axios.get(`https://agile-retreat-39153.herokuapp.com/questionSet/${id}`)
             .then(res => {
                 setQuestionSet(res.data);
                 setQuestions(res.data.questions)
@@ -26,7 +26,7 @@ const Responses = () => {
             .catch(error => toast.error(error.message))
     }, [id]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/responses/${id}`)
+        axios.get(`https://agile-retreat-39153.herokuapp.com/responses/${id}`)
             .then(res => {
                 setUserQnaSet(res.data);
                 // setUserqna(res.data.studentAns) // user Answer data from database 
@@ -42,19 +42,19 @@ const Responses = () => {
         questions.forEach((question, index1) => {
             let correctIndexes = [],
                 checkedIndexes = [];
-            if(question.options){
-            question.options.forEach((option, index2) => {
-                if (option.correct) correctIndexes.push(index2)
-                if (qna[index1].options[index2].checked) {
-                    checkedIndexes.push(index2);
-                    option.checked = true;
+            if (question.options) {
+                question.options.forEach((option, index2) => {
+                    if (option.correct) correctIndexes.push(index2)
+                    if (qna[index1].options[index2].checked) {
+                        checkedIndexes.push(index2);
+                        option.checked = true;
+                    }
+                });
+                if (_.isEqual(correctIndexes, checkedIndexes)) {
+                    score = score + parseInt(question.mark);
                 }
-            });
-            if (_.isEqual(correctIndexes, checkedIndexes)) {
-                score = score + parseInt(question.mark);
+                totalMarks = totalMarks + parseInt(question.mark)
             }
-            totalMarks = totalMarks + parseInt(question.mark)
-        }
         })
         return {
             score,

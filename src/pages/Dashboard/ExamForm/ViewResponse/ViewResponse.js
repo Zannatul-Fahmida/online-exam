@@ -15,7 +15,7 @@ const ViewResponse = () => {
     console.log('quq', new URLSearchParams(search).get('teacher'));
     const isTeacher = new URLSearchParams(search).get('teacher');
     useEffect(() => {
-        axios.get(`http://localhost:5000/responses/singleSet/${resId}`)
+        axios.get(`https://agile-retreat-39153.herokuapp.com/responses/singleSet/${resId}`)
             .then(data => setResponse(data.data))
     }, [resId]);
     const handleUpdateMark = (value, index) => {
@@ -29,7 +29,7 @@ const ViewResponse = () => {
         }
         const studentAnswers = _.cloneDeep(response.responses.studentAns)
         studentAnswers[index].obtainMark = value;
-        axios.put(`http://localhost:5000/markupdate/${resId}`, studentAnswers)
+        axios.put(`https://agile-retreat-39153.herokuapp.com/markupdate/${resId}`, studentAnswers)
             .then(data => {
                 if (data.data.modifiedCount === 1) {
                     toast.success("updated", {

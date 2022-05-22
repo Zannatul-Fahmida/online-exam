@@ -12,12 +12,12 @@ const Dashboard = () => {
     const { user } = useAuth();
     const [questionSet, setQuestionSet] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/myQuestionSet/${user.email}`)
+        fetch(`https://agile-retreat-39153.herokuapp.com/myQuestionSet/${user.email}`)
             .then(res => res.json())
             .then(data => setQuestionSet(data))
     }, [user.email]);
     const handleDelete = id => {
-        fetch(`http://localhost:5000/questionSet/${id}`, {
+        fetch(`https://agile-retreat-39153.herokuapp.com/questionSet/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
